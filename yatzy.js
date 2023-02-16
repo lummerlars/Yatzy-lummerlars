@@ -1,7 +1,5 @@
 // Fetch button
-let button = document.querySelector("button");
-
-console.log("Findes den? " + button);
+let button = document.getElementById("rollDice");
 
 button.onclick = () => {
   console.log(throwDice());
@@ -17,11 +15,19 @@ let diceKept = [];
 
 // DOM
 let diceArea = document.getElementById("diceArea").children;
-// let keepDie = document.getElementById("keptDie"); // Put in an array
+
+function holdDie(diceArea) {
+  for (let i = 0; i < diceArea.length; i++) {
+    const element = diceArea[i];
+    console.log(element);
+  }
+}
 
 function setAlleFaces(dice) {
   for (let i = 0; i < diceArea.length; i++) {
-    console.log(diceArea[i]);
+    const element = diceArea[i].getElementsByTagName("img");
+    console.log(element);
+    element.src = "hack.png";
   }
 }
 

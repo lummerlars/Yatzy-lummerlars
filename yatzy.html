@@ -6,145 +6,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="yatzy.js" defer></script>
     <link rel="stylesheet" href="yatzy.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
     <title>Yatzy</title>
   </head>
   <body>
     <div class="yatzyGrid">
       <div class="yatzyHeader">
         <div class="diceArea" id="diceArea">
-          <button class="dice" type="button">#1</button>
-          <button class="dice" type="button">#2</button>
-          <button class="dice" type="button">#3</button>
-          <button class="dice" type="button">#4</button>
-          <button class="dice" type="button">#5</button>
+          <div class="dice">
+            <img src="images/dice-six-faces-one.png" />
+            <button id="die01">Hold</button>
+          </div>
+          <div class="dice">
+            <img src="images/dice-six-faces-two.png" />
+            <button id="die02">Hold</button>
+          </div>
+          <div class="dice">
+            <img src="images/dice-six-faces-three.png" />
+            <button id="die03" disabled>Hold</button>
+          </div>
+          <div class="dice">
+            <img src="images/dice-six-faces-four.png" />
+            <button id="die04">Hold</button>
+          </div>
+          <div class="dice">
+            <img src="images/dice-six-faces-five.png" />
+            <button id="die05">Hold</button>
+          </div>
         </div>
         <div class="headerBottom">
-          <div class="turn">Turn 1</div>
+          <div class="turn">
+            <span class="count" id="rollCount">0</span>
+          </div>
           <div class="roll">
-            <button type="button" id="rollDice">Roll!</button>
+            <button type="button" id="rollDice">Roll dice</button>
           </div>
         </div>
       </div>
       <div class="yatzyBody">
-        <div class="firstColumn row1">1-s</div>
-        <div class="firstColumn row2">2-s</div>
-        <div class="firstColumn row3">3-s</div>
-        <div class="firstColumn row4">4-s</div>
-        <div class="firstColumn row5">5-s</div>
-        <div class="firstColumn row6">6-s</div>
-        <div class="firstColumn row7">One pair</div>
-        <div class="firstColumn row8">Two pairs</div>
-        <div class="firstColumn row9">Three same</div>
-        <div class="firstColumn row10">Four same</div>
-        <div class="firstColumn row11">Full house</div>
-        <div class="firstColumn row12">Small straight</div>
-        <div class="firstColumn row13">Large straight</div>
-        <div class="firstColumn row14">Chance</div>
-        <div class="firstColumn row15">Yatzy</div>
-        <label for="ones" class="secondColumn row1 pointoutput" id="ones-output"
-          >0</label
-        >
-        <label for="twos" class="secondColumn row2 pointoutput" id="twos-output"
-          >0</label
-        >
-        <label
-          for="threes"
-          class="secondColumn row3 pointoutput"
-          id="threes-output"
-          >0</label
-        >
-        <label
-          for="fours"
-          class="secondColumn row4 pointoutput"
-          id="fours-output"
-          >0</label
-        >
-        <label
-          for="fives"
-          class="secondColumn row5 pointoutput"
-          id="fives-output"
-          >0</label
-        >
-        <label
-          for="sixes"
-          class="secondColumn row6 pointoutput"
-          id="sixes-output"
-          >0</label
-        >
-        <label
-          for="one-pair"
-          class="secondColumn row7 pointoutput"
-          id="onepair-output"
-          >0</label
-        >
-        <label
-          for="two-pairs"
-          class="secondColumn row8 pointoutput"
-          id="twopairs-output"
-          >0</label
-        >
-        <label
-          for="three-same"
-          class="secondColumn row9 pointoutput"
-          id="threesame-output"
-          >0</label
-        >
-        <label
-          for="four-same"
-          class="secondColumn row10 pointoutput"
-          id="foursame-output"
-          >0</label
-        >
-        <label
-          for="full-house"
-          class="secondColumn row11 pointoutput"
-          id="fullhouse-output"
-          >0</label
-        >
-        <label
-          for="small-straight"
-          class="secondColumn row12 pointoutput"
-          id="smallstraight-output"
-          >0</label
-        >
-        <label
-          for="large-straight"
-          class="secondColumn row13 pointoutput"
-          id="largestraight-output"
-          >0</label
-        >
-        <label
-          for="chance"
-          class="secondColumn row14 pointoutput"
-          id="chance-output"
-          >0</label
-        >
-        <label
-          for="yatzy"
-          class="secondColumn row15 pointoutput"
-          id="yatzy-output"
-          >0</label
-        >
-        <p class="thirdColumn row6" id="sum">
-          <label for="sum"> Sum: </label>
-        </p>
-        <p class="p-output fourthColumn row6 pointoutput" id="sum-output">
-          <label for="sum-output"></label>0
-        </p>
+        <div class="inner">
+          <div class="firstColumn row1">1-s</div>
+          <div class="firstColumn row2">2-s</div>
+          <div class="firstColumn row3">3-s</div>
+          <div class="firstColumn row4">4-s</div>
+          <div class="firstColumn row5">5-s</div>
+          <div class="firstColumn row6">6-s</div>
+          <div class="firstColumn row7">One pair</div>
+          <div class="firstColumn row8">Two pairs</div>
+          <div class="firstColumn row9">Three same</div>
+          <div class="firstColumn row10">Four same</div>
+          <div class="firstColumn row11">Full house</div>
+          <div class="firstColumn row12">Small straight</div>
+          <div class="firstColumn row13">Large straight</div>
+          <div class="firstColumn row14">Chance</div>
+          <div class="firstColumn row15">Yatzy</div>
+          <label
+            for="ones"
+            class="secondColumn row1 pointoutput"
+            id="ones-output"
+            >0</label
+          >
+          <label
+            for="twos"
+            class="secondColumn row2 pointoutput"
+            id="twos-output"
+            >0</label
+          >
+          <label
+            for="threes"
+            class="secondColumn row3 pointoutput"
+            id="threes-output"
+            >0</label
+          >
+          <label
+            for="fours"
+            class="secondColumn row4 pointoutput"
+            id="fours-output"
+            >0</label
+          >
+          <label
+            for="fives"
+            class="secondColumn row5 pointoutput"
+            id="fives-output"
+            >0</label
+          >
+          <label
+            for="sixes"
+            class="secondColumn row6 pointoutput"
+            id="sixes-output"
+            >0</label
+          >
+          <label
+            for="one-pair"
+            class="secondColumn row7 pointoutput"
+            id="onepair-output"
+            >0</label
+          >
+          <label
+            for="two-pairs"
+            class="secondColumn row8 pointoutput"
+            id="twopairs-output"
+            >0</label
+          >
+          <label
+            for="three-same"
+            class="secondColumn row9 pointoutput"
+            id="threesame-output"
+            >0</label
+          >
+          <label
+            for="four-same"
+            class="secondColumn row10 pointoutput"
+            id="foursame-output"
+            >0</label
+          >
+          <label
+            for="full-house"
+            class="secondColumn row11 pointoutput"
+            id="fullhouse-output"
+            >0</label
+          >
+          <label
+            for="small-straight"
+            class="secondColumn row12 pointoutput"
+            id="smallstraight-output"
+            >0</label
+          >
+          <label
+            for="large-straight"
+            class="secondColumn row13 pointoutput"
+            id="largestraight-output"
+            >0</label
+          >
+          <label
+            for="chance"
+            class="secondColumn row14 pointoutput"
+            id="chance-output"
+            >0</label
+          >
+          <label
+            for="yatzy"
+            class="secondColumn row15 pointoutput"
+            id="yatzy-output"
+            >0</label
+          >
+          <p class="thirdColumn row6" id="sum">
+            <label for="sum"> Sum: </label>
+          </p>
+          <p class="p-output fourthColumn row6 pointoutput" id="sum-output">
+            <label for="sum-output"></label>0
+          </p>
 
-        <p class="fifthColumn row6" id="bonus">
-          <label for="bonus"> Bonus: </label>
-        </p>
-        <p class="p-output sixthColumn row6 pointoutput" id="bonus-output">
-          <label for="bonus-output"> </label>0
-        </p>
+          <p class="fifthColumn row6" id="bonus">
+            <label for="bonus"> Bonus: </label>
+          </p>
+          <p class="p-output sixthColumn row6 pointoutput" id="bonus-output">
+            <label for="bonus-output"> </label>0
+          </p>
 
-        <p class="fifthColumn row15" id="total">
-          <label for="total"> Total: </label>
-        </p>
-        <p class="p-output sixthColumn row15 pointoutput" id="total-output">
-          <label for="total-output"></label>0
-        </p>
+          <p class="fifthColumn row15" id="total">
+            <label for="total"> Total: </label>
+          </p>
+          <p class="p-output sixthColumn row15 pointoutput" id="total-output">
+            <label for="total-output"></label>0
+          </p>
+        </div>
       </div>
     </div>
   </body>
