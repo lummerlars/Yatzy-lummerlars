@@ -1,7 +1,7 @@
 // Fetch button
-let button = document.getElementById("rollDice");
+let rollButton = document.getElementById("rollDice");
 
-button.onclick = () => {
+rollButton.onclick = () => {
   console.log(throwDice());
 };
 
@@ -11,63 +11,75 @@ let roundNumber = 0; // number of rounds
 
 // Dice info
 let diceOnTable = [];
-let diceKept = [];
+let diceKept = [0, 0, 0, 0, 0];
 
 // DOM
 let diceArea = document.getElementById("diceArea").children;
 
-function holdDie(diceArea) {
-  for (let i = 0; i < diceArea.length; i++) {
-    const element = diceArea[i];
-    console.log(element);
+// Constant
+holdDie(diceOnTable);
+
+// Roll the 5 dice. Only roll dice that are not hold.
+// Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
+function throwDice() {
+  if (countNumber < 3) {
+    let dice = [];
+    // Mangler HoldStatus[]
+    for (let i = 0; i < 5; i++) {
+      console.log("HOKUS: " + checkHoldDice(i));
+      if (!checkHoldDice(i)) {
+        dice[i] = Math.floor(Math.random() * 6) + 1;
+      } else {
+        dice[i] = diceOnTable[i];
+      }
+    }
+    setAlleFaces(dice);
+    countNumber++;
+    setCount();
+    disableFunction();
+    return (diceOnTable = dice);
   }
 }
 
-function setAlleFaces(dice) {
-  for (let i = 0; i < diceArea.length; i++) {
-    const element = diceArea[i].getElementsByTagName("img");
-    console.log(element);
-    element.src = "hack.png";
+function holdDie() {
+  for (let i = 0; i < 5; i++) {
+    let holdCheckBox = document.getElementById("holdDie" + i);
+    holdCheckBox.addEventListener("change", () => {
+      if (holdCheckBox.checked) {
+        console.log("Checked " + diceOnTable[i]);
+        diceKept[i] = diceOnTable[i];
+      } else {
+        console.log("Unchecked " + diceOnTable[i]);
+        diceKept[i] = 0;
+      }
+      console.log(diceKept);
+    });
   }
 }
 
-function changeFaces() {
-  // diceOnTable.forEach((element) => {});
+function setAlleFaces(diceOnTable) {
+  for (let i = 0; i < 5; i++) {
+    document
+      .getElementById("die" + i)
+      .setAttribute("src", "images/dice-six-faces-" + diceOnTable[i] + ".png");
+  }
 }
 
-// Set the 5 face values of the dice.
-// Pre: 1 <= values[i] <= 6 for i in [0..4].
-// Note: This method is only to be used in tests.
-function setValues(values) {}
+function checkHoldDice(index) {
+  let holdCheckBox = document.getElementById("holdDie" + index);
+  if (holdCheckBox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 // Return the number of times the 5 dice has been thrown.
 function getThrowCount() {}
 
 // Reset the throw count.
-function resetThrowCount() {}
-
-// Roll the 5 dice. Only roll dice that are not hold.
-// Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
-function throwDice() {
-  let dice = [];
-  // Mangler HoldStatus[]
-  for (let i = 0; i < 5; i++) {
-    dice[i] = Math.floor(Math.random() * 6) + 1;
-  }
-  setAlleFaces(dice);
-  return (diceOnTable = dice);
-}
-
-// Keep a certain die in array
-function keepDie(die) {
-  let keptDie = [];
-  if (die.id !== "#kept") {
-    die.id = "#kept";
-    keptDie.push(die);
-  } else {
-    die.id = "#notKept";
-    keptDie.pop(die);
-  }
+function resetThrowCount() {
+  countNumber = 0;
 }
 
 // Return all results possible with the current face values.
@@ -145,4 +157,31 @@ function allSameValue(diceOnTable) {
   } else {
     return false;
   }
+}
+
+// Check if count is 3
+function checkMaxCount() {
+  if (countNumber == 3) {
+    document.getElementById("rollDice").disabled = true;
+    disableFunction();
+  }
+}
+
+function disableFunction() {
+  if (countNumber > 0) {
+    for (let i = 0; i < 5; i++) {
+      document.getElementById("holdDie" + i).disabled = false;
+    }
+  }
+  if (countNumber === 3) {
+    for (let i = 0; i < 5; i++) {
+      document.getElementById("holdDie" + i).disabled = true;
+    }
+  }
+}
+
+// Refactor count
+function setCount() {
+  checkMaxCount();
+  return (document.getElementById("rollCount").textContent = countNumber);
 }
