@@ -1,8 +1,25 @@
+// Fetch button
+let rollButton = document.querySelector("button");
+
+// roll and round init
+let countNumber = 0; // number of times the player has rolled the dice
+let roundNumber = 0; // number of rounds
+
+// Dice info
+let diceOnTable = [];
+let diceKept = [];
+
+// DOM
+let diceArea = document.getElementById("diceArea");
+let keepDie = document.getElementById("keptDie"); // Put in an array
+
 // Return the 5 face values of the dice.
 function getValues() {}
+
 // Set the 5 face values of the dice.
 // Pre: 1 <= values[i] <= 6 for i in [0..4].
 // Note: This method is only to be used in tests.
+
 function setValues(values) {}
 
 // Return the number of times the 5 dice has been thrown.
@@ -13,7 +30,24 @@ function resetThrowCount() {}
 
 // Roll the 5 dice. Only roll dice that are not hold.
 // Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
-function throwDice(bool) {}
+function throwDice(diceKept) {
+  const diceOnTable = [];
+  for (let i = 0; i < diceOnTable.length; i++) {
+    const die = array[i];
+    diceKept.array.forEach((keptDice) => {
+      if (die !== keptDice) {
+        diceOnTable.push(randomThrow(die));
+      }
+    });
+    countNumber++;
+  }
+}
+
+// Return random die number between 1-6
+function randomThrow(die) {}
+
+// Keep a certain die in array
+function keepDie(die) {}
 
 // Return all results possible with the current face values.
 // The order of the results is the same as on the score board.
