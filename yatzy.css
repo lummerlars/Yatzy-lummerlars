@@ -1,0 +1,52 @@
+.yatzyGrid {
+  background: linear-gradient();
+}
+
+.yatzyGrid .yatzyHeader {
+  margin: auto;
+}
+
+.yatzyGrid .yatzyHeader .diceArea {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(5, 100px);
+  justify-content: center;
+}
+
+.yatzyGrid .yatzyHeader .diceArea .dice {
+  background-color: green;
+  padding: 10px;
+  margin: 10px;
+  height: 60px;
+  width: 60px;
+}
+
+.yatzyGrid .yatzyHeader .headerBottom {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(2, 250px);
+  justify-content: center;
+}
+
+.yatzyGrid .yatzyHeader .headerBottom .turn {
+  display: flex;
+  justify-content: left;
+  margin-left: 5px;
+}
+
+.yatzyGrid .yatzyHeader .headerBottom .roll {
+  display: flex;
+  justify-content: right;
+  margin-right: 5px;
+}
+
+.yatzyGrid .yatzyHeader .headerBottom .roll button {
+  height: 40px;
+  width: 100px;
+}
+
+.yatzyGrid .yatzyBody {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
