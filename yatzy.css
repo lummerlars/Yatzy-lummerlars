@@ -1,9 +1,18 @@
+:root {
+  --default-width: 700px;
+
+  --default-border: 1px solid #000;
+}
+
 .yatzyGrid {
   background: linear-gradient();
 }
 
 .yatzyGrid .yatzyHeader {
   margin: auto;
+  margin-top: 15px;
+  width: var(--default-width);
+  border: var(--default-border);
 }
 
 .yatzyGrid .yatzyHeader .diceArea {
@@ -17,12 +26,14 @@
   background-color: green;
   padding: 10px;
   margin: 10px;
-  height: 60px;
-  width: 60px;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
 }
 
 .yatzyGrid .yatzyHeader .headerBottom {
   display: grid;
+  margin-bottom: 15px;
   margin-block-start: 2em;
   grid-template-rows: auto;
   grid-template-columns: repeat(2, 250px);
@@ -44,16 +55,20 @@
 .yatzyGrid .yatzyHeader .headerBottom .roll button {
   height: 40px;
   width: 100px;
+  cursor: pointer;
 }
 
 .yatzyGrid .yatzyBody {
-  width: 700px;
+  width: var(--default-width);
+  border: var(--default-border);
+  margin: auto;
   display: grid;
-  margin-inline-start: 25em;
+  /* margin-inline-start: 25em; */
   margin-block-start: 2em;
   grid-template-columns: 4 (auto);
   grid-column-gap: 20px;
 }
+
 .firstColumn {
   grid-column-start: 1;
   grid-column-end: 1;

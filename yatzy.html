@@ -11,12 +11,12 @@
   <body>
     <div class="yatzyGrid">
       <div class="yatzyHeader">
-        <div class="diceArea">
-          <div class="dice">hej</div>
-          <div class="dice">hej</div>
-          <div class="dice">hej</div>
-          <div class="dice">hej</div>
-          <div class="dice">hej</div>
+        <div class="diceArea" id="diceArea">
+          <button class="dice" type="button">#1</button>
+          <button class="dice" type="button">#2</button>
+          <button class="dice" type="button">#3</button>
+          <button class="dice" type="button">#4</button>
+          <button class="dice" type="button">#5</button>
         </div>
         <div class="headerBottom">
           <div class="turn">Turn 1</div>
@@ -125,7 +125,9 @@
           id="yatzy-output"
           >0</label
         >
-        <p class="thirdColumn row6" id="sum"><label for="sum"> Sum: </label></p>
+        <p class="thirdColumn row6" id="sum">
+          <label for="sum"> Sum: </label>
+        </p>
         <p class="p-output fourthColumn row6 pointoutput" id="sum-output">
           <label for="sum-output"></label>0
         </p>

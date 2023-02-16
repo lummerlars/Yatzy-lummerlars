@@ -5,7 +5,6 @@ console.log("Findes den? " + button);
 
 button.onclick = () => {
   console.log(throwDice());
-  console.log(chancePoints());
 };
 
 // roll and round init
@@ -17,16 +16,22 @@ let diceOnTable = [];
 let diceKept = [];
 
 // DOM
-let diceArea = document.getElementById("diceArea");
+let diceArea = document.getElementById("diceArea").children;
 // let keepDie = document.getElementById("keptDie"); // Put in an array
 
-// Return the 5 face values of the dice.
-function getValues() {}
+function setAlleFaces(dice) {
+  for (let i = 0; i < diceArea.length; i++) {
+    console.log(diceArea[i]);
+  }
+}
+
+function changeFaces() {
+  // diceOnTable.forEach((element) => {});
+}
 
 // Set the 5 face values of the dice.
 // Pre: 1 <= values[i] <= 6 for i in [0..4].
 // Note: This method is only to be used in tests.
-
 function setValues(values) {}
 
 // Return the number of times the 5 dice has been thrown.
@@ -43,12 +48,20 @@ function throwDice() {
   for (let i = 0; i < 5; i++) {
     dice[i] = Math.floor(Math.random() * 6) + 1;
   }
+  setAlleFaces(dice);
   return (diceOnTable = dice);
 }
 
 // Keep a certain die in array
 function keepDie(die) {
   let keptDie = [];
+  if (die.id !== "#kept") {
+    die.id = "#kept";
+    keptDie.push(die);
+  } else {
+    die.id = "#notKept";
+    keptDie.pop(die);
+  }
 }
 
 // Return all results possible with the current face values.
