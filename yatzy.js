@@ -1,5 +1,12 @@
 // Fetch button
-let rollButton = document.querySelector("button");
+let button = document.querySelector("button");
+
+console.log("Findes den? " + button);
+
+button.onclick = () => {
+  console.log(throwDice());
+  console.log(chancePoints());
+};
 
 // roll and round init
 let countNumber = 0; // number of times the player has rolled the dice
@@ -11,7 +18,7 @@ let diceKept = [];
 
 // DOM
 let diceArea = document.getElementById("diceArea");
-let keepDie = document.getElementById("keptDie"); // Put in an array
+// let keepDie = document.getElementById("keptDie"); // Put in an array
 
 // Return the 5 face values of the dice.
 function getValues() {}
@@ -30,30 +37,24 @@ function resetThrowCount() {}
 
 // Roll the 5 dice. Only roll dice that are not hold.
 // Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
-function throwDice(diceKept) {
-  const diceOnTable = [];
-  for (let i = 0; i < diceOnTable.length; i++) {
-    const die = array[i];
-    diceKept.array.forEach((keptDice) => {
-      if (die !== keptDice) {
-        diceOnTable.push(randomThrow(die));
-      }
-    });
-    countNumber++;
+function throwDice() {
+  let dice = [];
+  // Mangler HoldStatus[]
+  for (let i = 0; i < 5; i++) {
+    dice[i] = Math.floor(Math.random() * 6) + 1;
   }
+  return (diceOnTable = dice);
 }
 
-// Return random die number between 1-6
-function randomThrow(die) {}
-
 // Keep a certain die in array
-function keepDie(die) {}
+function keepDie(die) {
+  let keptDie = [];
+}
 
 // Return all results possible with the current face values.
 // The order of the results is the same as on the score board.
 // Note: This is an optional method. Comment this method out,
 // if you don't want use it.
-
 function getResults() {}
 
 // Return an int[7] containing the frequency of face values.
@@ -100,8 +101,29 @@ function smallStraightPoints() {}
 function largeStraightPoints() {}
 
 // Return points for chance (the sum of face values).
-function chancePoints() {}
+function chancePoints() {
+  let score = 0;
+  for (let i = 0; i < diceOnTable.length; i++) {
+    score += diceOnTable[i];
+  }
+  return score;
+}
 
 // Return points for yatzy (50 points).
 // Return 0, if there aren't 5 dice with the same face value.
-function yatzyPoints() {}
+function yatzyPoints() {
+  let score = 0;
+  let sameValue = allSameValue(diceOnTable);
+  if (sameValue) {
+    score = 50;
+  }
+  return score;
+}
+
+function allSameValue(diceOnTable) {
+  if (diceOnTable.every((value, i, diceOnTable) => value === diceOnTable[i])) {
+    return true;
+  } else {
+    return false;
+  }
+}
