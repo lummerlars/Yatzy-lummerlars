@@ -6,6 +6,7 @@
   --default-boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   --theme-color: #09223b;
+  --dice-size: 60px;
 }
 
 body {
@@ -14,7 +15,8 @@ body {
 }
 
 .yatzyGrid {
-  background: linear-gradient();
+  /* display: grid;
+  grid-template-columns: repeat(2, auto); */
 }
 
 .yatzyGrid .yatzyHeader {
@@ -43,13 +45,13 @@ body {
   background-repeat: no-repeat;
   background-position: cover;
   margin: 10px;
-  height: 80px;
-  width: 80px;
+  height: var(--dice-size);
+  width: var(--dice-size);
 }
 .yatzyGrid .yatzyHeader .diceArea .dice input {
   margin: 5px 10px 10px 10px;
   height: 30px;
-  width: 80px;
+  width: var(--dice-size);
   cursor: pointer;
   align-items: center;
   background-color: Var(--theme-color);
@@ -73,7 +75,6 @@ body {
   -webkit-user-select: none;
   vertical-align: middle;
 }
-
 .yatzyGrid .yatzyHeader .diceArea .dice input:hover {
   background-color: #16437e !important;
   color: #ffffff;
@@ -104,7 +105,7 @@ body {
   color: rgb(255, 255, 255, 0.7);
 }
 .yatzyGrid .yatzyHeader .diceArea .dice input:checked {
-  cursor: not-allowed;
+  cursor: pointer;
   background: #09223b !important;
   color: rgb(255, 255, 255, 0.7);
 }
@@ -226,108 +227,30 @@ body {
   grid-column-gap: 20px;
   padding: 15px;
 }
-
-.firstColumn {
-  grid-column-start: 1;
-  grid-column-end: 1;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
+.gridParent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 15px;
 }
-.secondColumn {
-  grid-column-start: 2;
-  grid-column-end: 2;
+.gridParent .gridItem {
+  grid-column-start: span 6;
+}
+.gridParent .gridItem:nth-child(1n) {
+  grid-column-start: 1 !important;
+}
+.gridParent .gridItem:nth-child(2n) {
+  grid-column-start: 2 !important;
+}
+.gridParent .gridItem input {
+  width: 50px;
   text-align: center;
 }
-
-.thirdColumn {
-  grid-column-start: 3;
-  grid-column-end: 3;
+.gridParent .gridItem:nth-child(13) {
+  grid-column-start: 3 !important;
 }
-
-.fourthColumn {
-  grid-column-start: 4;
-  grid-column-end: 4;
-  text-align: center;
-}
-
-.fifthColumn {
-  grid-column-start: 5;
-  grid-column-end: 5;
-}
-
-.sixthColumn {
-  grid-column-start: 6;
-  grid-column-end: 6;
-  text-align: center;
-}
-
-.row1 {
-  grid-row-start: 1;
-  grid-row-end: 1;
-}
-.row2 {
-  grid-row-start: 2;
-  grid-row-end: 2;
-}
-.row3 {
-  grid-row-start: 3;
-  grid-row-end: 3;
-}
-.row4 {
-  grid-row-start: 4;
-  grid-row-end: 4;
-}
-.row5 {
-  grid-row-start: 5;
-  grid-row-end: 5;
-}
-.row6 {
-  grid-row-start: 6;
-  grid-row-end: 6;
-}
-.row7 {
-  grid-row-start: 7;
-  grid-row-end: 7;
-}
-.row8 {
-  grid-row-start: 8;
-  grid-row-end: 8;
-}
-.row9 {
-  grid-row-start: 9;
-  grid-row-end: 9;
-}
-.row10 {
-  grid-row-start: 10;
-  grid-row-end: 10;
-}
-.row11 {
-  grid-row-start: 11;
-  grid-row-end: 11;
-}
-.row12 {
-  grid-row-start: 12;
-  grid-row-end: 12;
-}
-.row13 {
-  grid-row-start: 13;
-  grid-row-end: 13;
-}
-.row14 {
-  grid-row-start: 14;
-  grid-row-end: 14;
-}
-.row15 {
-  grid-row-start: 15;
-  grid-row-end: 15;
-}
-
-.pointoutput {
-  /* border: 2px solid black; */
-  font-weight: 100;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  background-color: #e5f0fb;
-  border-radius: 4px;
-  box-shadow: var(--default-boxShadow);
+.gridParent .gridItem:nth-child(14),
+.gridParent .gridItem:nth-child(33) {
+  grid-column-start: 4 !important;
 }
