@@ -15,7 +15,6 @@ let diceKept = [0, 0, 0, 0, 0];
 
 // DOM
 let diceArea = document.getElementById("diceArea").children;
-diceArea;
 
 // Constant
 holdDie(diceOnTable);
