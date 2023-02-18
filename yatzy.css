@@ -6,6 +6,7 @@
   --default-boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   --theme-color: #09223b;
+  --green-color: #093b22;
   --dice-size: 60px;
 }
 
@@ -275,7 +276,7 @@ body {
   margin-block-start: 2em;
   grid-template-columns: 4 (auto);
   grid-column-gap: 20px;
-  padding: 15px;
+  padding: 30px;
 }
 .gridParent {
   display: grid;
@@ -289,19 +290,41 @@ body {
 }
 .gridParent .gridItem:nth-child(1n) {
   grid-column-start: 1 !important;
+  display: flex;
+  align-items: center;
 }
 .gridParent .gridItem:nth-child(2n) {
   grid-column-start: 2 !important;
 }
 .gridParent .gridItem input {
-  width: 50px;
+  box-shadow: inset #abacaf 0 0 0 2px;
   text-align: center;
+  border: 0;
+  background: rgba(0, 0, 0, 0);
+  appearance: none;
+  width: 50px;
+  position: relative;
+  border-radius: 3px;
+  padding: 9px 12px;
+  color: rgb(0, 0, 0);
+  font-weight: 400;
+  height: auto;
+  transition: all 0.2s ease;
   cursor: pointer;
-  box-shadow: var(--default-boxShadow);
-  /* border: 1px solid transparent; */
+}
+
+.gridParent .gridItem input:hover {
+  box-shadow: 0 0 0 0 #fff inset, var(--theme-color) 0 0 0 2px;
 }
 .gridParent .gridItem input:focus {
-  /* background-color: #09223b; */
+  background: #fff;
+  outline: 0;
+  box-shadow: 0 0 0 0 #fff inset, var(--theme-color) 0 0 0 1px;
+}
+.gridParent .gridItem input:disabled {
+  background: #d7d7d7;
+  outline: 0;
+  box-shadow: 0 0 0 0 #fff inset, var(--green-color) 0 0 0 1px;
 }
 .gridParent .gridItem :disabled {
   width: 50px;
@@ -310,8 +333,22 @@ body {
 }
 .gridParent .gridItem:nth-child(13) {
   grid-column-start: 3 !important;
+  justify-self: start;
+}
+.gridParent .gridItem:nth-child(13)::before {
+  content: "Sum:";
+  margin-right: 8px;
 }
 .gridParent .gridItem:nth-child(14),
 .gridParent .gridItem:nth-child(33) {
   grid-column-start: 4 !important;
+  justify-self: end;
+}
+.gridParent .gridItem:nth-child(14):before {
+  content: "Bonus:";
+  margin-right: 8px;
+}
+.gridParent .gridItem:nth-child(33):before {
+  content: "Total:";
+  margin-right: 8px;
 }

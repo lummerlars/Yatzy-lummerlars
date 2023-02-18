@@ -1,6 +1,5 @@
 // Imports
 import { getResults } from "./score.js";
-import { handleSelectScore } from "./score.js";
 
 // Fetch button
 let rollButton = document.getElementById("rollDice");
@@ -8,6 +7,19 @@ let rollButton = document.getElementById("rollDice");
 rollButton.onclick = () => {
   rollAnimation();
 };
+
+// roll and round init
+let countNumber = 0; // number of times the player has rolled the dice
+let totalCounts = 0;
+let totalSum = 0;
+
+// Dice info
+let diceOnTable = [0, 0, 0, 0, 0];
+let diceKept = [0, 0, 0, 0, 0];
+
+export function getDices() {
+  return diceOnTable;
+}
 
 function rollAnimation() {
   let dice = [];
@@ -19,24 +31,14 @@ function rollAnimation() {
   dice.forEach(function (die) {
     die.classList.add("diceShake");
   });
+  rollButton.disabled = true;
   setTimeout(function () {
     dice.forEach(function (die) {
       die.classList.remove("diceShake");
     });
+    rollButton.disabled = false;
     throwDice();
   }, 1000);
-}
-
-// roll and round init
-let countNumber = 0; // number of times the player has rolled the dice
-let totalCounts = 0;
-
-// Dice info
-let diceOnTable = [0, 0, 0, 0, 0];
-let diceKept = [0, 0, 0, 0, 0];
-
-export function getDices() {
-  return diceOnTable;
 }
 
 // Roll the 5 dice. Only roll dice that are not hold.
@@ -60,15 +62,47 @@ function throwDice() {
   }
 }
 
-export const findDuplicates = (arr) => {
-  let sorted_arr = arr.slice().sort();
-  let results = [];
-  for (let i = 0; i < sorted_arr.length - 1; i++) {
-    if (sorted_arr[i + 1] == sorted_arr[i]) {
-      results.push(sorted_arr[i]);
+// handle the selected inputs score and adds it to the total
+const handleSelectedScore = () => {
+  document.querySelectorAll("input").forEach((element) => {
+    let id = element.getAttribute("id");
+    element.addEventListener("click", function (event) {
+      if (
+        getCount() === 3 &&
+        id !== "sum" &&
+        id !== "bonus" &&
+        id !== "totalSum"
+      ) {
+        event.preventDefault();
+        console.log("You pressed a button with id: " + id);
+        setTheTotalScoreInputField(element.value);
+        element.disabled = true;
+        resetResults();
+        resetCount();
+      }
+    });
+  });
+};
+
+// Return the score - HELPER
+function setTheTotalScoreInputField(preSum) {
+  let scoreInputField = document.getElementById("totalSum");
+  scoreInputField.value = totalSum += parseInt(preSum);
+}
+
+const resetResults = () => {
+  document.querySelectorAll("input").forEach((element) => {
+    let id = element.getAttribute("id");
+    if (
+      getCount() === 3 &&
+      id !== "sum" &&
+      id !== "bonus" &&
+      id !== "totalSum" &&
+      element.disabled === false
+    ) {
+      element.value = "";
     }
-  }
-  return results;
+  });
 };
 
 export function getCount() {
@@ -115,7 +149,7 @@ function checkMaxCount() {
     document.getElementById("rollDice").disabled = true;
     disableFunction();
     getResults();
-    handleSelectScore();
+    handleSelectedScore();
     handleDeselectAllHolds();
   }
 }
