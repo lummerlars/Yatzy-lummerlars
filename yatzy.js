@@ -2,12 +2,13 @@
 let rollButton = document.getElementById("rollDice");
 
 rollButton.onclick = () => {
-  console.log(throwDice());
+  throwDice();
 };
 
 // roll and round init
 let countNumber = 0; // number of times the player has rolled the dice
 let roundNumber = 0; // number of rounds
+let totalSum = 0;
 
 // Dice info
 let diceOnTable = [];
@@ -17,28 +18,31 @@ let diceKept = [0, 0, 0, 0, 0];
 let diceArea = document.getElementById("diceArea").children;
 
 // Constant
-holdDie(diceOnTable);
+// holdDie(diceOnTable);
 
 // Roll the 5 dice. Only roll dice that are not hold.
 // Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
 function throwDice() {
-  if (countNumber < 3) {
+  if (getCount() < 4) {
     let dice = [];
     // Mangler HoldStatus[]
     for (let i = 0; i < 5; i++) {
-      console.log("HOKUS: " + checkHoldDice(i));
       if (!checkHoldDice(i)) {
         dice[i] = Math.floor(Math.random() * 6) + 1;
       } else {
         dice[i] = diceOnTable[i];
       }
     }
+    setCount(countNumber++);
+    diceOnTable = dice;
     setAlleFaces(dice);
-    countNumber++;
-    setCount();
     disableFunction();
-    return (diceOnTable = dice);
+    console.log(diceOnTable);
   }
+}
+
+function getCount() {
+  return countNumber;
 }
 
 function holdDie() {
@@ -46,13 +50,10 @@ function holdDie() {
     let holdCheckBox = document.getElementById("holdDie" + i);
     holdCheckBox.addEventListener("change", () => {
       if (holdCheckBox.checked) {
-        console.log("Checked " + diceOnTable[i]);
         diceKept[i] = diceOnTable[i];
       } else {
-        console.log("Unchecked " + diceOnTable[i]);
         diceKept[i] = 0;
       }
-      console.log(diceKept);
     });
   }
 }
@@ -74,19 +75,41 @@ function checkHoldDice(index) {
   }
 }
 
-// Return the number of times the 5 dice has been thrown.
-function getThrowCount() {}
+function handleSelectScore() {
+  for (let i = 1; i < 7; i++) {
+    let inputField = document.getElementById("same-" + i);
+    inputField.onclick = () => {
+      handleScore(inputField.value);
+    };
+  }
+}
 
-// Reset the throw count.
-function resetThrowCount() {
-  countNumber = 0;
+// Return the score
+function handleScore(preSum) {
+  let scoreInputField = document.getElementById("totalSum");
+  scoreInputField.value = totalSum += parseInt(preSum);
 }
 
 // Return all results possible with the current face values.
 // The order of the results is the same as on the score board.
 // Note: This is an optional method. Comment this method out,
 // if you don't want use it.
-function getResults() {}
+function getResults() {
+  handleSelectScore();
+  for (let i = 1; i < 7; i++) {
+    let inputField = document.getElementById("same-" + i);
+    inputField.value = sameValuePoints(i);
+  }
+  // onePairPoints();
+  // twoPairPoints();
+  // threeSamePoints();
+  // fourSamePoints();
+  // fullHousePoints();
+  // smallStraightPoints();
+  // largeStraightPoints();
+  // chancePoints();
+  // yatzyPoints();
+}
 
 // Return an int[7] containing the frequency of face values.
 // Frequency at index v is the number of dice with the face value v, 1 <= v <= 6.
@@ -97,7 +120,15 @@ function frequency() {}
 /// Return same-value points for the given face value.
 // Returns 0, if no dice has the given face value.
 // Pre: 1 <= value <= 6;
-function sameValuePoints(value) {}
+function sameValuePoints(number) {
+  let score = 0;
+  for (let i = 0; i < diceOnTable.length; i++) {
+    if (diceOnTable[i] === number) {
+      score += diceOnTable[i];
+    }
+  }
+  return score;
+}
 
 // Return points for one pair (for the face value giving the highest points).
 // Return 0, if there aren't 2 dice with the same face value.
@@ -143,10 +174,12 @@ function chancePoints() {
 // Return points for yatzy (50 points).
 // Return 0, if there aren't 5 dice with the same face value.
 function yatzyPoints() {
+  let yatzyInput = document.getElementById("yatchSum");
   let score = 0;
   let sameValue = allSameValue(diceOnTable);
   if (sameValue) {
     score = 50;
+    yatzyInput.value = score;
   }
   return score;
 }
@@ -161,9 +194,10 @@ function allSameValue(diceOnTable) {
 
 // Check if count is 3
 function checkMaxCount() {
-  if (countNumber == 3) {
+  if (countNumber === 3) {
     document.getElementById("rollDice").disabled = true;
     disableFunction();
+    getResults();
   }
 }
 
@@ -181,7 +215,8 @@ function disableFunction() {
 }
 
 // Refactor count
-function setCount() {
+function setCount(number) {
+  getCount() + number;
   checkMaxCount();
   return (document.getElementById("rollCount").textContent = countNumber);
 }
