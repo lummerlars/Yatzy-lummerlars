@@ -273,3 +273,4 @@ const addAnimationToInputField = () => {
 };
 
 console.log(calculateFullHouse());
+console.log(calculatePairValue());

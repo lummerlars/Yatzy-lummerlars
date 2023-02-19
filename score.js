@@ -15,6 +15,7 @@ export function getResults() {
   changeAllKindValue();
   changeAllPairValue();
   changeStraights();
+  calculateFullHouse();
   // fullHousePoints();
   // smallStraightPoints();
   // largeStraightPoints();
@@ -59,44 +60,121 @@ export const calculateKindsValue = (numberOfKinds) => {
 };
 
 export const calculatePairValue = (numberOfPair) => {
-  const resultArray = [...getDices()].sort((a, b) => b - a);
-  let firstPairValue = 0;
-  let secondPairValue = 0;
-  let totalValue = 0;
-  for (let i = 0; i < resultArray.length - 1; i++) {
-    for (let j = i + 1; j < resultArray.length; j++) {
-      if (resultArray[i] === resultArray[j]) {
-        if (firstPairValue == 0) {
-          firstPairValue = resultArray[i];
-          console.log("Firstpair: " + firstPairValue);
-          totalValue = firstPairValue * 2;
-        } else if (
-          secondPairValue == 0 &&
-          numberOfPair > 1 &&
-          resultArray[i] !== firstPairValue
-        ) {
-          secondPairValue = resultArray[i];
-          console.log("SecondPair: " + secondPairValue);
-          totalValue += secondPairValue * 2;
-        } else {
-          break;
-        }
-      }
+  let array = [6, 5, 5, 3, 3, 1];
+  let pairs = 2;
+  let countDie = {};
+  let totalSum = 0;
+
+  // let countObj = {};
+  // for (let x of arr) {
+  //   countObj[x] = (countObj[x] || 0) + 1;
+  // }
+  // let vals = Object.values(countObj);
+  // //console.log(vals);
+  // if (vals.filter((x) => x === 2).length == 2) return true;
+  // return false;
+
+  for (let die of array) {
+    if (countDie[die] !== 2) {
+      countDie[die] = (countDie[die] || 0) + 1;
+      console.log("ArrayValue = " + die + " Count: " + countDie[die]);
+      // if (countDie[die] === pairs) {
+      //   totalSum += die * 2;
+      //   break;
+      // }
     }
   }
-  return (numberOfPair == 2) & (secondPairValue === 0) ? 0 : totalValue;
+  let values = Object.values(countDie);
+  if (values.filter((die) => die === 2).length == pairs) {
+    console.log(totalSum);
+    return true;
+  }
+  return 0;
+
+  // for (let die of array) {
+  //   if (countDie[die] !== pairs) {
+  //     countDie[die] = (countDie[die] || 0) + 1;
+  //     console.log("ArrayValue = " + die + " Count: " + countDie[die]);
+  //     if (countDie[die] == pairs) {
+  //       totalSum += die * 2;
+  //     }
+  //   } else {
+  //     break;
+  //   }
+  // }
+  // let values = Object.values(countDie);
+  // if (values.filter((die) => die === 2).length == pairs) {
+  //   console.log(totalSum);
+  //   return true;
+  // }
+
+  // return false;
+
+  // export const calculatePairValue = (numberOfPair) => {
+  //   const resultArray = [...getDices()].sort((a, b) => b - a);
+  //   console.log("Number of pairs: " + numberOfPair);
+  //   let countDie = {};
+  //   let totalSum = 0;
+  //   for (let die of resultArray) {
+  //     if (countDie[die] !== numberOfPair) {
+  //       countDie[die] = (countDie[die] || 0) + 1;
+  //       console.log("ArrayValue = " + die + " Count: " + countDie[die]);
+  //       if (countDie[die] == numberOfPair) {
+  //         totalSum += die * 2;
+  //       }
+  //     } else {
+  //       break;
+  //     }
+  //   }
+  //   let values = Object.values(countDie);
+  //   if (values.filter((die) => die === 2).length == numberOfPair) {
+  //     console.log(totalSum);
+  //     return totalSum;
+  //   }
+  //   return 0;
+
+  // const resultArray = [...getDices()].sort((a, b) => b - a);
+  // let firstPairValue = 0;
+  // let secondPairValue = 0;
+  // let totalValue = 0;
+  // for (let i = 0; i < resultArray.length - 1; i++) {
+  //   for (let j = i + 1; j < resultArray.length; j++) {
+  //     if (resultArray[i] === resultArray[j]) {
+  //       if (firstPairValue == 0) {
+  //         firstPairValue = resultArray[i];
+  //         console.log("Firstpair: " + firstPairValue);
+  //         totalValue = firstPairValue * 2;
+  //       } else if (
+  //         secondPairValue == 0 &&
+  //         numberOfPair > 1 &&
+  //         resultArray[i] !== firstPairValue
+  //       ) {
+  //         secondPairValue = resultArray[i];
+  //         console.log("SecondPair: " + secondPairValue);
+  //         totalValue += secondPairValue * 2;
+  //       } else {
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
+  // return (numberOfPair == 2) & (secondPairValue === 0) ? 0 : totalValue;
 };
 
 // Return points for full house.
 // Return 0, if there aren't 3 dice with the same face value
 // and 2 other dice with the same but different face value.
 export const calculateFullHouse = () => {
-  // MANGLER!!!!
-  const resultArray = [...getDices()].sort((a, b) => a - b);
-  const array = [3, 3, 3, 2, 2];
-  let totalSum = 0;
-  for (let i = 0; i < array.length - 1; i++) {}
-  return totalSum;
+  let array = [3, 3, 3, 2, 2];
+  let countDie = {};
+  for (let x of array) {
+    countDie[x] = (countDie[x] || 0) + 1;
+  }
+  let vals = Object.values(countDie);
+  if ((vals[0] === 2 && vals[1] === 3) || (vals[1] === 2 && vals[0] === 3)) {
+    return true;
+  }
+  return false;
 };
 
 // Return points for small straight.
