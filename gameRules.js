@@ -1,5 +1,13 @@
 // Imports
 import { getResults } from "./score.js";
+import { sameValuePoints } from "./score.js";
+import { calculateKindsValue } from "./score.js";
+import { calculatePairValue } from "./score.js";
+import {
+  calculateSmallStraightPoints,
+  calculateLargeStraightPoints,
+  calculateFullHouse,
+} from "./score.js";
 
 // Fetch button
 let rollButton = document.getElementById("rollDice");
@@ -21,7 +29,7 @@ export function getDices() {
   return diceOnTable;
 }
 
-function rollAnimation() {
+const rollAnimation = () => {
   let dice = [];
   for (let i = 0; i < 5; i++) {
     if (!checkHoldDice(i)) {
@@ -39,11 +47,11 @@ function rollAnimation() {
     rollButton.disabled = false;
     throwDice();
   }, 1000);
-}
+};
 
 // Roll the 5 dice. Only roll dice that are not hold.
 // Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
-function throwDice() {
+const throwDice = () => {
   if (getCount() < 4) {
     let dice = [];
     for (let i = 0; i < 5; i++) {
@@ -60,7 +68,7 @@ function throwDice() {
     disableFunction();
     console.log(diceOnTable);
   }
-}
+};
 
 // handle the selected inputs score and adds it to the total
 const handleSelectedScore = () => {
@@ -151,6 +159,7 @@ function checkMaxCount() {
     getResults();
     handleSelectedScore();
     handleDeselectAllHolds();
+    addAnimationToInputField();
   }
 }
 
@@ -178,16 +187,89 @@ function disableFunction() {
   }
 }
 
-export function resetCount() {
+export const resetCount = () => {
   countNumber = 0;
   checkMaxCount();
   disableFunction();
   return (document.getElementById("rollCount").textContent = countNumber);
-}
+};
 
 // Refactor count
-function addCount(number) {
+const addCount = (number) => {
   getCount() + number;
   checkMaxCount();
   return (document.getElementById("rollCount").textContent = countNumber);
-}
+};
+
+export const changeAllSameValue = () => {
+  for (let i = 1; i < 7; i++) {
+    let inputField = document.getElementById("same-" + i);
+    if (inputField.disabled !== true) {
+      inputField.value = sameValuePoints(i);
+    }
+  }
+};
+
+export const changeAllKindValue = () => {
+  for (let i = 3; i < 5; i++) {
+    let kindInputField = document.getElementById("kind-" + i);
+    if (kindInputField.disabled !== true) {
+      kindInputField.value = calculateKindsValue(i);
+    }
+  }
+};
+
+export const changeAllPairValue = () => {
+  for (let i = 1; i < 3; i++) {
+    let pairInputField = document.getElementById("pair-" + i);
+    if (pairInputField.disabled !== true) {
+      pairInputField.value = calculatePairValue(i);
+    }
+  }
+};
+
+export const changeStraights = () => {
+  let smallStraightInputField = document.getElementById("smallStraight");
+  if (smallStraightInputField.disabled !== true) {
+    smallStraightInputField.value = calculateSmallStraightPoints();
+  }
+  let largeStraightInputField = document.getElementById("largeStraight");
+  if (largeStraightInputField.disabled !== true) {
+    largeStraightInputField.value = calculateLargeStraightPoints();
+  }
+};
+
+const checkIfInputFieldIsLocked = (id) => {
+  const inputField = document.getElementById(id);
+  if (inputField.disabled === true) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const addAnimationToInputField = () => {
+  // let allInputFields = [];
+  // document.querySelectorAll("input").forEach((element) => {
+  //   let id = element.getAttribute("id");
+  //   if (
+  //     getCount() === 3 &&
+  //     id !== "sum" &&
+  //     id !== "bonus" &&
+  //     id !== "totalSum" &&
+  //     element.disabled === false
+  //   ) {
+  //     allInputFields.push(element);
+  //   }
+  // });
+  // allInputFields.forEach(function (inputField) {
+  //   inputField.classList.add("trysomething");
+  // });
+  // setTimeout(function () {
+  //   allInputFields.forEach(function (inputField) {
+  //     inputField.classList.remove("diceShake");
+  //   });
+  // }, 1000);
+};
+
+console.log(calculateFullHouse());
