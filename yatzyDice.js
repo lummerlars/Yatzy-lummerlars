@@ -2,8 +2,8 @@ class YatzyDice {
   // Face values of the 5 dice.
   // 1 <= values[i] <= 6 for i in [0..4]
   constructor() {
-    let values = Array(5);
-    let throwCount = 0;
+    this.values = new Array(5).fill(0);
+    this.throwCount = 0;
   }
 
   /**
@@ -43,9 +43,9 @@ class YatzyDice {
    */
   throwDice(holdStatus) {
     // TODO
-    for (let i = 0; i < this.values?.length; i++) {
+    for (let i = 0; i < this.values.length; i++) {
       if (!holdStatus[i]) {
-        this.values[i] = Math.floor(Math.random * 6 + 1);
+        this.values[i] = Math.floor(Math.random() * 6) + 1;
       }
     }
     this.throwCount++;
@@ -85,7 +85,7 @@ class YatzyDice {
   // Note: This method can be used in several of the following methods.
   frequency() {
     //TODO
-    freq = Array(7);
+    let freq = new Array(7).fill(0);
     for (let value of this.values) {
       freq[value]++;
     }
@@ -99,7 +99,8 @@ class YatzyDice {
    */
   sameValuePoints(value) {
     // TODO
-    return frequency()[value] * value;
+    let freq = this.frequency();
+    return freq[value] * value;
   }
 
   /**
@@ -108,7 +109,7 @@ class YatzyDice {
    */
   onePairPoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     for (let i = freq.length - 1; i > 0; i--) {
       if (freq[i] > 1) {
         return 2 * i;
@@ -125,7 +126,7 @@ class YatzyDice {
    */
   twoPairPoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     let firstPair = 0;
     let secondPair = 0;
     let totalPairPoint = 0;
@@ -150,7 +151,7 @@ class YatzyDice {
    */
   threeSamePoints() {
     // TODO
-    freq = frequency();
+    let freq = this.frequency();
     let threeKind = 0;
     for (let i = 1; i < freq.length; i++) {
       if (freq[i] >= 3) {
@@ -166,7 +167,7 @@ class YatzyDice {
    */
   fourSamePoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     let fourKind = 0;
     for (let i = 1; i < freq.length; i++) {
       if (freq[i] >= 4) {
@@ -183,7 +184,7 @@ class YatzyDice {
    */
   fullHousePoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     let pair = 0;
     let threeKind = 0;
     for (let i = 1; i < freq.length; i++) {
@@ -205,7 +206,7 @@ class YatzyDice {
    */
   smallStraightPoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     for (let i = 1; i < freq.length - 1; i++) {
       if (freq[i] != 1) {
         return 0;
@@ -220,7 +221,7 @@ class YatzyDice {
    */
   largeStraightPoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     for (let i = 2; i < freq.length; i++) {
       if (freq[i] != 1) {
         return 0;
@@ -246,7 +247,7 @@ class YatzyDice {
    */
   yatzyPoints() {
     // TODO
-    let freq = frequency();
+    let freq = this.frequency();
     for (let i = 1; i < freq.length; i++) {
       if (freq[i] == 5) {
         return 50;
