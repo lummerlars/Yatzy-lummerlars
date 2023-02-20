@@ -3,10 +3,15 @@ import { changeAllSameValue } from "./gameRules.js";
 import { changeAllKindValue } from "./gameRules.js";
 import { changeAllPairValue } from "./gameRules.js";
 import { changeStraights } from "./gameRules.js";
+
+import YatzyDice from "./yatzyDice.js";
+
 // roll and round init
 
 // Dice info
-let dice = [];
+// let dice = [];
+
+let dice = new YatzyDice();
 
 // Return all results possible with the current face values.
 // The order of the results is the same as on the score board.
@@ -60,7 +65,7 @@ export const calculateKindsValue = (numberOfKinds) => {
 };
 
 export const calculatePairValue = (numberOfPair) => {
-  let array = [6, 5, 5, 3, 3, 1];
+  let arr = [6, 5, 5, 3, 3, 1];
   let pairs = 2;
   let countDie = {};
   let totalSum = 0;
@@ -71,25 +76,25 @@ export const calculatePairValue = (numberOfPair) => {
   // }
   // let vals = Object.values(countObj);
   // //console.log(vals);
-  // if (vals.filter((x) => x === 2).length == 2) return true;
+  // if (vals.filter((x) => x === 2).length == ) return true;
   // return false;
 
-  for (let die of array) {
-    if (countDie[die] !== 2) {
-      countDie[die] = (countDie[die] || 0) + 1;
-      console.log("ArrayValue = " + die + " Count: " + countDie[die]);
-      // if (countDie[die] === pairs) {
-      //   totalSum += die * 2;
-      //   break;
-      // }
-    }
-  }
-  let values = Object.values(countDie);
-  if (values.filter((die) => die === 2).length == pairs) {
-    console.log(totalSum);
-    return true;
-  }
-  return 0;
+  // for (let die of array) {
+  //   if (countDie[die] !== 2) {
+  //     countDie[die] = (countDie[die] || 0) + 1;
+  //     console.log("ArrayValue = " + die + " Count: " + countDie[die]);
+  //     // if (countDie[die] === pairs) {
+  //     //   totalSum += die * 2;
+  //     //   break;
+  //     // }
+  //   }
+  // }
+  // let values = Object.values(countDie);
+  // if (values.filter((die) => die === 2).length == pairs) {
+  //   console.log(totalSum);
+  //   return true;
+  // }
+  // return 0;
 
   // for (let die of array) {
   //   if (countDie[die] !== pairs) {

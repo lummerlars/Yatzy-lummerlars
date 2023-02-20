@@ -1,4 +1,7 @@
+import YatzyDice from "./yatzyDice.js";
+
 // Fetch button
+
 let rollButton = document.getElementById("rollDice");
 
 rollButton.onclick = () => {
@@ -14,6 +17,8 @@ let totalSum = 0;
 let diceOnTable = [];
 let diceKept = [0, 0, 0, 0, 0];
 
+let dice = new YatzyDice();
+
 // DOM
 let diceArea = document.getElementById("diceArea").children;
 
@@ -22,7 +27,7 @@ let diceArea = document.getElementById("diceArea").children;
 
 // Roll the 5 dice. Only roll dice that are not hold.
 // Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
-function throwDice() {
+const throwDice = () => {
   if (getCount() < 4) {
     let dice = [];
     // Mangler HoldStatus[]
@@ -39,7 +44,7 @@ function throwDice() {
     disableFunction();
     console.log(diceOnTable);
   }
-}
+};
 
 function getCount() {
   return countNumber;
