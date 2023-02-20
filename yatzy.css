@@ -28,6 +28,7 @@ body {
   /* border: var(--default-border); */
   box-shadow: var(--default-boxShadow);
 }
+
 .yatzyGrid .yatzyHeader h1 {
   display: flex;
   justify-content: center;
@@ -37,7 +38,7 @@ body {
 .yatzyGrid .yatzyHeader .diceArea {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(5, 100px);
+  grid-template-columns: repeat(5, calc(var(--default-width) / 7));
   justify-content: center;
 }
 
@@ -50,12 +51,15 @@ body {
 }
 
 .yatzyGrid .yatzyHeader .diceArea .dice img {
-  /* background-color: var(--theme-color); */
   background-repeat: no-repeat;
-  background-position: cover;
   margin: 10px;
   height: var(--dice-size);
   width: var(--dice-size);
+  cursor: pointer;
+}
+
+.diceSelected {
+  opacity: 0.4;
 }
 
 .diceShake {

@@ -8,6 +8,7 @@ import {
   calculateLargeStraightPoints,
   calculateFullHouse,
 } from "./score.js";
+import YatzyDice from "./yatzyDice.js";
 
 // Fetch button
 let rollButton = document.getElementById("rollDice");
@@ -15,6 +16,10 @@ let rollButton = document.getElementById("rollDice");
 rollButton.onclick = () => {
   rollAnimation();
 };
+
+holdDie();
+
+let yatzyDice = new YatzyDice();
 
 // roll and round init
 let countNumber = 0; // number of times the player has rolled the dice
@@ -123,15 +128,34 @@ const updateTotalCount = () => {
 
 function holdDie() {
   for (let i = 0; i < 5; i++) {
-    let holdCheckBox = document.getElementById("holdDie" + i);
-    holdCheckBox.addEventListener("change", () => {
-      if (holdCheckBox.checked) {
-        diceKept[i] = diceOnTable[i];
-      } else {
-        diceKept[i] = 0;
-      }
+    let holdCheckBox = document.getElementById("die" + i);
+    holdCheckBox.addEventListener("click", function () {
+      this.disabled == true ? false : true;
+      this.disabled == true ? (diceKept[i] = holdCheckBox) : (diceKept[i] = 0);
+      this.classList.toggle("diceSelected");
+      console.log("DiceKept: " + diceKept + " button pressed: " + holdCheckBox);
     });
   }
+  // for (let i = 0; i < 5; i++) {
+  //   let holdCheckBox = document.getElementById("die" + i);
+  //   holdCheckBox.addEventListener("click", () => {
+  //     if (diceOnTable[i] !== diceKept[i]) {
+  //       holdCheckBox.classList.add("diceSelected");
+  //       console.log(holdCheckBox);
+  //       diceKept[i] = diceOnTable[i];
+  //       console.log(
+  //         "diceKept: " + diceKept + " and you pressed: " + diceOnTable[i]
+  //       );
+  //     } else {
+  //       console.log(holdCheckBox);
+  //       holdCheckBox.classList.remove("diceSelected");
+  //       diceKept[i] = 0;
+  //       console.log(
+  //         "diceKept: " + diceKept + " and you deselected: " + diceOnTable[i]
+  //       );
+  //     }
+  //   });
+  // }
 }
 
 function setAlleFaces(diceOnTable) {
@@ -143,8 +167,8 @@ function setAlleFaces(diceOnTable) {
 }
 
 function checkHoldDice(index) {
-  let holdCheckBox = document.getElementById("holdDie" + index);
-  if (holdCheckBox.checked) {
+  let holdCheckBox = document.getElementById("die" + index);
+  if (holdCheckBox === diceOnTable[index]) {
     return true;
   } else {
     return false;
