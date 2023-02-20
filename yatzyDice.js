@@ -10,7 +10,7 @@ class YatzyDice {
    * Return the 5 face values of the dice.
    */
   getValues = () => {
-    return values;
+    return this.values;
   };
 
   /**
@@ -26,7 +26,7 @@ class YatzyDice {
    * Return the number of times the 5 dice has been thrown.
    */
   getThrowCount() {
-    return throwCount;
+    return this.throwCount;
   }
 
   /**
@@ -43,12 +43,12 @@ class YatzyDice {
    */
   throwDice(holdStatus) {
     // TODO
-    for (let i = 0; i < values.length; i++) {
+    for (let i = 0; i < this.values?.length; i++) {
       if (!holdStatus[i]) {
-        values[i] = Math.floor(Math.random * 6 + 1);
+        this.values[i] = Math.floor(Math.random * 6 + 1);
       }
     }
-    throwCount++;
+    this.throwCount++;
   }
 
   // -------------------------------------------------------------------------

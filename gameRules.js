@@ -8,7 +8,7 @@ import {
   calculateLargeStraightPoints,
   calculateFullHouse,
 } from "./score.js";
-import YatzyDice from "./yatzyDice.js";
+import YatzyDice from "./YatzyDice.js";
 
 // Fetch button
 let rollButton = document.getElementById("rollDice");

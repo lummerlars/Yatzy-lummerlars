@@ -4,7 +4,7 @@ import { changeAllKindValue } from "./gameRules.js";
 import { changeAllPairValue } from "./gameRules.js";
 import { changeStraights } from "./gameRules.js";
 
-import YatzyDice from "./yatzyDice.js";
+import YatzyDice from "./YatzyDice.js";
 
 // roll and round init
 
