@@ -4,12 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="yatzy.js" defer></script> -->
-    <!-- <script type="module" src="gameRules.js" defer></script>
-    <script type="module" src="score.js" defer></script>
-    <script type="module" src="yatzyDice.js" defer></script> -->
     <script type="module" src="gameSetup.js" defer></script>
-    <link rel="stylesheet" href="yatzy.css" />
+    <script type="module" src="modal.js" defer></script>
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="style/modal.css" />
 
     <link
       href="https://fonts.googleapis.com/css?family=Roboto"
@@ -18,46 +16,88 @@
     <title>Yatzy</title>
   </head>
   <body>
+    <section class="modal hidden" id="chooseName">
+      <div class="header">
+        <h3>Insert your name</h3>
+      </div>
+      <div class="bottom">
+        <p>Your name will be stored local to track your results.</p>
+        <p class="error hidden" id="error-message">
+          You need to type in a name.
+        </p>
+      </div>
+
+      <input type="text" id="inputName" placeholder="Anders Hansen" />
+      <button class="btn btn-submit">Submit name</button>
+    </section>
+
+    <div class="overlay hidden"></div>
+    <!-- <button class="btn btn-open">Open Modal</button> -->
+
     <div class="yatzyGrid">
       <div class="yatzyHeader">
-        <h1>Yatzy</h1>
-        <div class="diceArea" id="diceArea">
-          <div class="dice">
-            <img id="die0" src="images/dice-six-faces-1.png" />
-            <input type="checkbox" disabled id="holdDie0" />
+        <div class="top">
+          <h1>Yatzy</h1>
+
+          <div class="diceArea" id="diceArea">
+            <div class="dice">
+              <img id="die0" src="images/dice-six-faces-1.png" />
+              <input type="checkbox" disabled id="holdDie0" />
+            </div>
+            <div class="dice">
+              <img id="die1" src="images/dice-six-faces-2.png" />
+              <input type="checkbox" disabled id="holdDie1" />
+            </div>
+            <div class="dice">
+              <img id="die2" src="images/dice-six-faces-3.png" />
+              <input type="checkbox" disabled id="holdDie2" />
+            </div>
+            <div class="dice">
+              <img id="die3" src="images/dice-six-faces-4.png" />
+              <input type="checkbox" disabled id="holdDie3" />
+            </div>
+            <div class="dice">
+              <img id="die4" src="images/dice-six-faces-5.png" />
+              <input type="checkbox" disabled id="holdDie4" />
+            </div>
           </div>
-          <div class="dice">
-            <img id="die1" src="images/dice-six-faces-2.png" />
-            <input type="checkbox" disabled id="holdDie1" />
+          <div class="headerBottom">
+            <div class="roll">
+              <button type="button" id="rollDice">Roll</button>
+              <button type="button" id="endGame">End game</button>
+            </div>
           </div>
-          <div class="dice">
-            <img id="die2" src="images/dice-six-faces-3.png" />
-            <input type="checkbox" disabled id="holdDie2" />
-          </div>
-          <div class="dice">
-            <img id="die3" src="images/dice-six-faces-4.png" />
-            <input type="checkbox" disabled id="holdDie3" />
-          </div>
-          <div class="dice">
-            <img id="die4" src="images/dice-six-faces-5.png" />
-            <input type="checkbox" disabled id="holdDie4" />
+          <div class="turnInfo">
+            <div class="currentTurn">
+              <span class="count" id="rollCount">0</span>
+            </div>
+            <div class="totalTurn">
+              <span class="count" id="totalCount">0</span>
+            </div>
           </div>
         </div>
-        <div class="headerBottom">
-          <div class="roll">
-            <button type="button" id="rollDice"></button>
-            <button type="button" id="endGame">End game</button>
+        <div class="players" id="playerList">
+          <div class="playerInfo">
+            <h4 class="" id="playerName"></h4>
           </div>
-        </div>
-        <div class="turnInfo">
-          <div class="currentTurn">
-            <span class="count" id="rollCount">0</span>
-          </div>
-          <div class="totalTurn">
-            <span class="count" id="totalCount">0</span>
+          <div class="scoreTable">
+            <table
+              id="myTable"
+              class="table table-borderless table-striped table-earning"
+            >
+              <thead>
+                <tr>
+                  <th>Name:</th>
+                  <th>Score:</th>
+                  <th>Date:</th>
+                </tr>
+              </thead>
+              <tbody id="testBody"></tbody>
+            </table>
           </div>
         </div>
       </div>
+
       <div class="yatzyBody">
         <div class="inner">
           <div class="gridParent">

@@ -1,24 +1,33 @@
 import YatzyDice from "./YatzyDice.js";
+import Player from "./player.js";
+import { openModal } from "./modal.js";
 
 let dice = new YatzyDice();
+let player = new Player();
 
 const rollButton = document.getElementById("rollDice");
+const endButton = document.getElementById("endGame");
 let throwCount = document.getElementById("rollCount");
-rollButton.innerHTML = "Start Game";
 
 rollButton.onclick = () => {
   rollTheDice();
 };
 
+endButton.onclick = () => {
+  endGame();
+};
+
+openModal(player);
+
 const rollAnimation = () => {
-  let count = 0;
-  setInterval(function () {
-    if (count >= 2) {
-      clearInterval();
-    }
-    count++;
-    console.log(count);
-  }, 200);
+  // let count = 0;
+  // setInterval(function () {
+  //   if (count >= 2) {
+  //     clearInterval();
+  //   }
+  //   count++;
+  //   console.log(count);
+  // }, 200);
 };
 
 // const rollAnimation = () => {
@@ -79,7 +88,6 @@ const setAlleDieFaces = (dice) => {
 
 const checkThrowCount = () => {
   if (dice.getThrowCount() === 1) {
-    rollButton.innerHTML = "Roll";
     holdDie();
   }
   if (dice.getThrowCount() === 3) {
@@ -103,21 +111,49 @@ const showResults = () => {
 };
 
 const selectResult = () => {
-  if (dice.getThrowCount() === 3) {
-    document.querySelectorAll("input").forEach((inputField) => {
-      let id = inputField.getAttribute("id");
-      inputField.addEventListener("click", function (event) {
-        if (id !== "sum" && id !== "bonus" && id !== "totalSum") {
-          event.preventDefault();
-          console.log("You pressed a button with id: " + id);
-          inputField.disabled = true;
-          updateSumAndBonus();
-          dice.resetThrowCount();
-          throwCount.textContent = dice.getThrowCount();
-          rollButton.disabled = false;
-        }
-      });
+  document.querySelectorAll("input").forEach((inputField) => {
+    let id = inputField.getAttribute("id");
+    inputField.addEventListener("click", function (event) {
+      if (
+        id !== "sum" &&
+        id !== "bonus" &&
+        id !== "totalSum"
+        // dice.getThrowCount() === 3
+      ) {
+        event.preventDefault();
+        console.log(dice.getThrowCount());
+        console.log("You pressed a button with id: " + id);
+        inputField.disabled = true;
+        updateSumAndBonus();
+        dice.resetThrowCount();
+        throwCount.textContent = dice.getThrowCount();
+        rollButton.disabled = false;
+        resetResults();
+        checkStatus();
+      }
     });
+  });
+};
+
+const resetResults = () => {
+  for (let i = 0; i < 15; i++) {
+    let inputField = document.getElementById("result-" + i);
+    if (inputField.disabled !== true) {
+      inputField.value = "";
+    }
+  }
+};
+
+const checkStatus = () => {
+  let countDisabledInputField = 0;
+  for (let i = 0; i < 15; i++) {
+    let inputField = document.getElementById("result-" + i);
+    if (inputField.disabled == true) {
+      countDisabledInputField++;
+    }
+  }
+  if (countDisabledInputField === 15) {
+    endGame();
   }
 };
 
@@ -145,3 +181,49 @@ const updateSumAndBonus = () => {
   document.getElementById("bonus").value = parseInt(bonus);
   document.getElementById("totalSum").value = parseInt(totalSum);
 };
+
+const endGame = () => {
+  let resultArray = [];
+  for (let i = 0; i < 15; i++) {
+    let inputField = document.getElementById("result-" + i);
+    if (inputField.value === "") {
+      resultArray.push(0);
+    } else {
+      resultArray.push(parseInt(inputField.value));
+    }
+  }
+  let score = document.getElementById("totalSum");
+  player.setScore(score.value);
+  player.setResults(resultArray);
+  console.log(player.getResults());
+  // localStorage.clear();
+  addToPLayerList(player);
+};
+
+const addToPLayerList = (newPlayer) => {
+  let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
+  existingPlayerList.push(newPlayer);
+  localStorage.setItem("players", JSON.stringify(existingPlayerList));
+};
+
+const loadPlayerList = () => {
+  const table = document.getElementById("testBody");
+  let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
+  let index = 0;
+
+  console.log(existingPlayerList);
+
+  existingPlayerList.map((item) => {
+    let row = table.insertRow();
+    let nameCell = row.insertCell(-1);
+    nameCell.innerHTML = item.name;
+    let scoreCell = row.insertCell(-1);
+    scoreCell.innerHTML = item.score;
+    let dateFormat = new Date(item.id);
+    let dateCell = row.insertCell(-1);
+    dateCell.innerHTML = dateFormat.toLocaleDateString();
+    index++;
+  });
+};
+
+loadPlayerList();
