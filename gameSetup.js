@@ -11,31 +11,44 @@ rollButton.onclick = () => {
 };
 
 const rollAnimation = () => {
-  //   let dice = [];
-  //   for (let i = 0; i < 5; i++) {
-  //     if (!checkHoldDice(i)) {
-  //       dice.push(document.getElementById("die" + i));
-  //     }
-  //   }
-  //   dice.forEach(function (die) {
-  //     die.classList.add("diceShake");
-  //   });
-  //   rollButton.disabled = true;
-  //   setTimeout(function () {
-  //     dice.forEach(function (die) {
-  //       die.classList.remove("diceShake");
-  //     });
-  //     rollButton.disabled = false;
-  //     throwDice();
-  //   }, 1000);
+  let count = 0;
+  setInterval(function () {
+    if (count >= 2) {
+      clearInterval();
+    }
+    count++;
+    console.log(count);
+  }, 200);
 };
+
+// const rollAnimation = () => {
+//   let dice = [];
+//   for (let i = 0; i < 5; i++) {
+//     let die = document.getElementById("die" + i);
+//     dice.push(die);
+//   }
+//   dice.forEach(function (die) {
+//     die.classList.add("diceShake");
+//   });
+//   rollButton.disabled = true;
+//   setTimeout(function () {
+//     dice.forEach(function (die) {
+//       die.classList.remove("diceShake");
+//     });
+//     rollButton.disabled = false;
+//   }, 1000);
+// };
 
 function holdDie() {
   for (let i = 0; i < 5; i++) {
     let holdCheckBox = document.getElementById("die" + i);
+
     holdCheckBox.addEventListener("click", function () {
-      this.disabled == true ? false : true;
-      this.classList.toggle("diceSelected");
+      if (!rollButton.disabled && dice.getThrowCount() !== 0) {
+        /// LAV OM
+        this.disabled == true ? false : true;
+        this.classList.toggle("diceSelected");
+      }
     });
   }
 }
@@ -66,8 +79,8 @@ const setAlleDieFaces = (dice) => {
 
 const checkThrowCount = () => {
   if (dice.getThrowCount() === 1) {
-    holdDie();
     rollButton.innerHTML = "Roll";
+    holdDie();
   }
   if (dice.getThrowCount() === 3) {
     for (let i = 0; i < 5; i++) {
