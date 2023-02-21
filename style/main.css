@@ -99,14 +99,6 @@ h6 {
   justify-content: center;
 }
 
-.yatzyGrid .yatzyHeader .top .diceArea .dice img {
-  background-repeat: no-repeat;
-  margin: 10px;
-  height: var(--dice-size);
-  width: var(--dice-size);
-  cursor: pointer;
-}
-
 .diceSelected {
   opacity: 0.4;
 }
@@ -135,6 +127,11 @@ h6 {
   margin: 10px;
   height: var(--dice-size);
   width: var(--dice-size);
+  cursor: pointer;
+}
+
+.diceNotSelected {
+  cursor: pointer !important;
 }
 
 .yatzyGrid .yatzyHeader .top .diceArea .dice input {
@@ -363,7 +360,9 @@ table {
 td {
   padding: 5px 0;
   width: 33%;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .players {
@@ -425,28 +424,6 @@ td {
   outline: 0;
   box-shadow: 0 0 0 0 #fff inset, var(--green-color) 0 0 0 1px;
 }
-
-/* .trysomething {
-  height: 80px;
-  width: 80px;
-  border-radius: 100%;
-  background: red;
-  transition: height 0.5s;
-  transition: width 0.5s;
-  transition: border-radius 1s, box-shadow 1s, background 1s;
-  line-height: 75px;
-  text-align: center;
-  display: inline-block;
-  margin: 0;
-  box-shadow: 0;
-}
-
-.trysomething:hover {
-  border-radius: 0%;
-  box-shadow: 0px 8px 6px -4px #000000;
-  background: #ddd;
-  transition: border-radius 0.2s, box-shadow 0.2s, background 0.2s;
-} */
 
 .gridParent .gridItem :disabled {
   width: 50px;

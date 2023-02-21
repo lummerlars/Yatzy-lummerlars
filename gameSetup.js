@@ -4,6 +4,7 @@ import { openModal } from "./modal.js";
 
 let dice = new YatzyDice();
 let player = new Player();
+let gameRound = 0;
 
 const rollButton = document.getElementById("rollDice");
 const endButton = document.getElementById("endGame");
@@ -11,24 +12,28 @@ let throwCount = document.getElementById("rollCount");
 
 rollButton.onclick = () => {
   rollTheDice();
+  rollAnimation();
 };
 
-// endButton.onclick = () => {
-//   endGame();
-// };
+endButton.onclick = () => {
+  endGame();
+};
 
 openModal(player, "chooseName");
+
 holdDie();
 
 const rollAnimation = () => {
   // let count = 0;
-  // setInterval(function () {
+  // let rollDiceInterval = setInterval(function () {
   //   if (count >= 2) {
-  //     clearInterval();
   //   }
   //   count++;
   //   console.log(count);
-  // }, 200);
+  // }, Math.random(0, 500));
+  // setTimeout(function () {
+  //   clearInterval(runInterval);
+  // }, 2000);
 };
 
 // const rollAnimation = () => {
@@ -72,7 +77,6 @@ const getHeldDie = () => {
 };
 
 const rollTheDice = () => {
-  rollAnimation();
   dice.throwDice(getHeldDie());
   setAlleDieFaces(dice.getValues());
   throwCount.textContent = dice.getThrowCount();
@@ -200,7 +204,6 @@ export const loadPlayerList = () => {
   const table = document.getElementById("highscoreTable");
   table.innerHTML = "";
   let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
-  let index = 0;
 
   existingPlayerList
     .sort((a, b) => b.score - a.score)
@@ -214,7 +217,6 @@ export const loadPlayerList = () => {
       let dateFormat = new Date(item.id);
       let dateCell = row.insertCell(-1);
       dateCell.innerHTML = dateFormat.toLocaleDateString();
-      index++;
     });
 };
 

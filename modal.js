@@ -37,14 +37,28 @@ submitBtn.addEventListener("click", function () {
 });
 
 endGameBtn.addEventListener("click", function () {
+  let rollButton = document.getElementById("rollDice");
   addToPLayerList(player);
   loadPlayerList();
   closeModal();
+  rollButton.textContent = "New Game";
+  rollButton.id = "startNewGame";
+  if (rollButton.id === "startNewGame") {
+    startNewGame();
+  }
 });
+
+const startNewGame = () => {
+  let rollButton = document.getElementById("startNewGame");
+  rollButton.onclick = () => {
+    openModal(new Player(), "chooseName");
+    console.log(player);
+    rollButton.id = "rollDice";
+  };
+};
 
 const addToPLayerList = (newPlayer) => {
   let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
-
   existingPlayerList.push(newPlayer);
   console.log(existingPlayerList);
   localStorage.setItem("players", JSON.stringify(existingPlayerList));
