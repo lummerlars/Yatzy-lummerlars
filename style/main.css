@@ -39,25 +39,47 @@ body {
   align-content: stretch;
 }
 
-.yatzyGrid .yatzyHeader {
-  margin: auto;
-  position: relative;
+.inner {
   background-color: white;
-  padding-top: 10px;
-  height: 100%;
-  /* border: var(--default-border); */
-  box-shadow: var(--default-boxShadow);
+  margin: auto;
+  display: grid;
+  grid-column-gap: 20px;
+  padding: 30px;
+  border-radius: 15px;
 }
 
-.yatzyGrid .yatzyHeader .top {
-  flex-direction: column;
-  justify-content: space-between;
+.innerOther {
+  background-color: white;
+  margin: auto;
+  display: grid;
+  grid-column-gap: 20px;
+  padding: 0 30px 0 30px;
+  border-radius: 15px;
 }
-.yatzyGrid .yatzyHeader .top .yatzyGrid .yatzyHeader .top h1,
+
+.inner h1,
 h4 {
   display: flex;
   justify-content: center;
   letter-spacing: 3px;
+  margin-bottom: 15px;
+  background-color: rgba(103, 103, 103, 0.1);
+  border-radius: 4px;
+}
+
+.yatzyGrid .yatzyHeader {
+  margin: auto;
+  position: relative;
+  background-color: white;
+  height: 100%;
+  box-shadow: var(--default-boxShadow);
+  border-radius: 15px;
+}
+
+.yatzyGrid .yatzyHeader .top {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .yatzyGrid .yatzyHeader .top .diceArea {
@@ -254,10 +276,8 @@ h4 {
 
 .yatzyGrid .yatzyHeader .top .turnInfo {
   display: grid;
-  margin-bottom: 15px;
   grid-template-rows: auto;
   grid-template-columns: repeat(2, 250px);
-  padding-bottom: 15px;
   justify-content: center;
 }
 
@@ -301,10 +321,16 @@ h4 {
   width: 100%;
   /* border: var(--default-border); */
   box-shadow: var(--default-boxShadow);
+  border-radius: 0 0 15px 15px;
 }
 
 .players .playerInfo {
   display: flex;
+  justify-content: center;
+}
+
+.players .playerInfo .playerName {
+  padding: 10px;
 }
 
 .players {
@@ -315,19 +341,13 @@ h4 {
   margin: auto;
   justify-content: center;
   box-shadow: var(--default-boxShadow);
+  border-radius: 15px;
 }
 
-.yatzyGrid .yatzyBody .inner {
-  background-color: white;
-  margin: auto;
-  display: grid;
-  grid-column-gap: 20px;
-  padding: 30px;
-}
 .gridParent {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 25px);
   grid-column-gap: 5px;
   grid-row-gap: 15px;
 }
@@ -343,7 +363,7 @@ h4 {
   grid-column-start: 2 !important;
 }
 .gridParent .gridItem input {
-  box-shadow: inset #abacaf 0 0 0 2px;
+  box-shadow: inset #abacaf 0 0 0 1px;
   text-align: center;
   border: 0;
   background: rgba(0, 0, 0, 0);
@@ -351,7 +371,7 @@ h4 {
   width: 50px;
   position: relative;
   border-radius: 3px;
-  padding: 9px 12px;
+  padding: 5px 12px;
   color: rgb(0, 0, 0);
   font-weight: 400;
   height: auto;

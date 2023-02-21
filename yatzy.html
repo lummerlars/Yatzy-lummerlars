@@ -36,70 +36,70 @@
 
     <div class="yatzyGrid">
       <div class="yatzyHeader">
-        <div class="top">
-          <h1>Yatzy</h1>
+        <div class="inner">
+          <div class="top">
+            <h1>Yatzy</h1>
 
-          <div class="diceArea" id="diceArea">
-            <div class="dice">
-              <img id="die0" src="images/dice-six-faces-1.png" />
-              <input type="checkbox" disabled id="holdDie0" />
+            <div class="diceArea" id="diceArea">
+              <div class="dice">
+                <img id="die0" src="images/dice-six-faces-1.png" />
+              </div>
+              <div class="dice">
+                <img id="die1" src="images/dice-six-faces-2.png" />
+              </div>
+              <div class="dice">
+                <img id="die2" src="images/dice-six-faces-3.png" />
+              </div>
+              <div class="dice">
+                <img id="die3" src="images/dice-six-faces-4.png" />
+              </div>
+              <div class="dice">
+                <img id="die4" src="images/dice-six-faces-5.png" />
+              </div>
             </div>
-            <div class="dice">
-              <img id="die1" src="images/dice-six-faces-2.png" />
-              <input type="checkbox" disabled id="holdDie1" />
+            <div class="headerBottom">
+              <div class="roll">
+                <button type="button" id="rollDice">Roll</button>
+                <button type="button" id="endGame">End game</button>
+              </div>
             </div>
-            <div class="dice">
-              <img id="die2" src="images/dice-six-faces-3.png" />
-              <input type="checkbox" disabled id="holdDie2" />
-            </div>
-            <div class="dice">
-              <img id="die3" src="images/dice-six-faces-4.png" />
-              <input type="checkbox" disabled id="holdDie3" />
-            </div>
-            <div class="dice">
-              <img id="die4" src="images/dice-six-faces-5.png" />
-              <input type="checkbox" disabled id="holdDie4" />
-            </div>
-          </div>
-          <div class="headerBottom">
-            <div class="roll">
-              <button type="button" id="rollDice">Roll</button>
-              <button type="button" id="endGame">End game</button>
-            </div>
-          </div>
-          <div class="turnInfo">
-            <div class="currentTurn">
-              <span class="count" id="rollCount">0</span>
-            </div>
-            <div class="totalTurn">
-              <span class="count" id="totalCount">0</span>
+            <div class="turnInfo">
+              <div class="currentTurn">
+                <span class="count" id="rollCount">0</span>
+              </div>
+              <div class="totalTurn">
+                <span class="count" id="totalCount">0</span>
+              </div>
             </div>
           </div>
         </div>
         <div class="players" id="playerList">
-          <div class="playerInfo">
-            <h4 class="" id="playerName"></h4>
-          </div>
-          <div class="scoreTable">
-            <table
-              id="myTable"
-              class="table table-borderless table-striped table-earning"
-            >
-              <thead>
-                <tr>
-                  <th>Name:</th>
-                  <th>Score:</th>
-                  <th>Date:</th>
-                </tr>
-              </thead>
-              <tbody id="testBody"></tbody>
-            </table>
+          <div class="innerOther">
+            <div class="playerInfo">
+              <h4 class="playerName" id="playerName"></h4>
+            </div>
+            <div class="scoreTable">
+              <table
+                id="myTable"
+                class="table table-borderless table-striped table-earning"
+              >
+                <thead>
+                  <tr>
+                    <th>Name:</th>
+                    <th>Score:</th>
+                    <th>Date:</th>
+                  </tr>
+                </thead>
+                <tbody id="testBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="yatzyBody">
         <div class="inner">
+          <h1>Results</h1>
           <div class="gridParent">
             <div class="gridItem">1-s</div>
             <div class="gridItem">

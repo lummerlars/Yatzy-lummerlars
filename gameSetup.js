@@ -117,8 +117,8 @@ const selectResult = () => {
       if (
         id !== "sum" &&
         id !== "bonus" &&
-        id !== "totalSum"
-        // dice.getThrowCount() === 3
+        id !== "totalSum" &&
+        dice.getThrowCount() === 3
       ) {
         event.preventDefault();
         console.log(dice.getThrowCount());
@@ -202,7 +202,9 @@ const endGame = () => {
 
 const addToPLayerList = (newPlayer) => {
   let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
+
   existingPlayerList.push(newPlayer);
+  console.log(existingPlayerList);
   localStorage.setItem("players", JSON.stringify(existingPlayerList));
 };
 
@@ -213,17 +215,20 @@ const loadPlayerList = () => {
 
   console.log(existingPlayerList);
 
-  existingPlayerList.map((item) => {
-    let row = table.insertRow();
-    let nameCell = row.insertCell(-1);
-    nameCell.innerHTML = item.name;
-    let scoreCell = row.insertCell(-1);
-    scoreCell.innerHTML = item.score;
-    let dateFormat = new Date(item.id);
-    let dateCell = row.insertCell(-1);
-    dateCell.innerHTML = dateFormat.toLocaleDateString();
-    index++;
-  });
+  existingPlayerList
+    .slice(0, 5)
+    .sort((a, b) => a[1] - b[1])
+    .map((item) => {
+      let row = table.insertRow();
+      let nameCell = row.insertCell(-1);
+      nameCell.innerHTML = item.name;
+      let scoreCell = row.insertCell(-1);
+      scoreCell.innerHTML = item.score;
+      let dateFormat = new Date(item.id);
+      let dateCell = row.insertCell(-1);
+      dateCell.innerHTML = dateFormat.toLocaleDateString();
+      index++;
+    });
 };
 
 loadPlayerList();
