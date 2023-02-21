@@ -13,11 +13,12 @@ rollButton.onclick = () => {
   rollTheDice();
 };
 
-endButton.onclick = () => {
-  endGame();
-};
+// endButton.onclick = () => {
+//   endGame();
+// };
 
-openModal(player);
+openModal(player, "chooseName");
+holdDie();
 
 const rollAnimation = () => {
   // let count = 0;
@@ -49,17 +50,16 @@ const rollAnimation = () => {
 // };
 
 function holdDie() {
-  for (let i = 0; i < 5; i++) {
-    let holdCheckBox = document.getElementById("die" + i);
-
-    holdCheckBox.addEventListener("click", function () {
+  document.querySelectorAll("img").forEach((element) => {
+    let id = element.getAttribute("id");
+    element.addEventListener("click", function (event) {
       if (!rollButton.disabled && dice.getThrowCount() !== 0) {
-        /// LAV OM
+        event.preventDefault();
         this.disabled == true ? false : true;
         this.classList.toggle("diceSelected");
       }
     });
-  }
+  });
 }
 
 const getHeldDie = () => {
@@ -87,9 +87,6 @@ const setAlleDieFaces = (dice) => {
 };
 
 const checkThrowCount = () => {
-  if (dice.getThrowCount() === 1) {
-    holdDie();
-  }
   if (dice.getThrowCount() === 3) {
     for (let i = 0; i < 5; i++) {
       document.getElementById("die" + i).classList?.remove("diceSelected");
@@ -195,29 +192,19 @@ const endGame = () => {
   let score = document.getElementById("totalSum");
   player.setScore(score.value);
   player.setResults(resultArray);
-  console.log(player.getResults());
+  openModal(player, "endGameModal");
   // localStorage.clear();
-  addToPLayerList(player);
 };
 
-const addToPLayerList = (newPlayer) => {
-  let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
-
-  existingPlayerList.push(newPlayer);
-  console.log(existingPlayerList);
-  localStorage.setItem("players", JSON.stringify(existingPlayerList));
-};
-
-const loadPlayerList = () => {
-  const table = document.getElementById("testBody");
+export const loadPlayerList = () => {
+  const table = document.getElementById("highscoreTable");
+  table.innerHTML = "";
   let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
   let index = 0;
 
-  console.log(existingPlayerList);
-
   existingPlayerList
+    .sort((a, b) => b.score - a.score)
     .slice(0, 5)
-    .sort((a, b) => a[1] - b[1])
     .map((item) => {
       let row = table.insertRow();
       let nameCell = row.insertCell(-1);

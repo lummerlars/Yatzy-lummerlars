@@ -16,27 +16,9 @@
     <title>Yatzy</title>
   </head>
   <body>
-    <section class="modal hidden" id="chooseName">
-      <div class="header">
-        <h3>Insert your name</h3>
-      </div>
-      <div class="bottom">
-        <p>Your name will be stored local to track your results.</p>
-        <p class="error hidden" id="error-message">
-          You need to type in a name.
-        </p>
-      </div>
-
-      <input type="text" id="inputName" placeholder="Anders Hansen" />
-      <button class="btn btn-submit">Submit name</button>
-    </section>
-
-    <div class="overlay hidden"></div>
-    <!-- <button class="btn btn-open">Open Modal</button> -->
-
     <div class="yatzyGrid">
       <div class="yatzyHeader">
-        <div class="inner">
+        <div class="inner yatzyHeaderSize">
           <div class="top">
             <h1>Yatzy</h1>
 
@@ -60,7 +42,7 @@
             <div class="headerBottom">
               <div class="roll">
                 <button type="button" id="rollDice">Roll</button>
-                <button type="button" id="endGame">End game</button>
+                <!-- <button type="button" id="endGame">End game</button> -->
               </div>
             </div>
             <div class="turnInfo">
@@ -74,11 +56,12 @@
           </div>
         </div>
         <div class="players" id="playerList">
-          <div class="innerOther">
+          <div class="scoreTable">
             <div class="playerInfo">
               <h4 class="playerName" id="playerName"></h4>
+              <h6>Highscore</h6>
             </div>
-            <div class="scoreTable">
+            <div class="tableArea">
               <table
                 id="myTable"
                 class="table table-borderless table-striped table-earning"
@@ -90,7 +73,7 @@
                     <th>Date:</th>
                   </tr>
                 </thead>
-                <tbody id="testBody"></tbody>
+                <tbody id="highscoreTable"></tbody>
               </table>
             </div>
           </div>
@@ -99,7 +82,7 @@
 
       <div class="yatzyBody">
         <div class="inner">
-          <h1>Results</h1>
+          <h1>Points</h1>
           <div class="gridParent">
             <div class="gridItem">1-s</div>
             <div class="gridItem">
@@ -174,5 +157,36 @@
         </div>
       </div>
     </div>
+    <section class="modal hidden" id="chooseName">
+      <div class="header">
+        <h3>Insert your name</h3>
+      </div>
+      <div class="bottom">
+        <p>Your name will be stored local to track your results.</p>
+        <p class="error hidden" id="error-message">
+          You need to type in a name.
+        </p>
+      </div>
+
+      <input type="text" id="inputName" placeholder="Anders Hansen" />
+      <button class="btn btn-submit" id="chooseNameBtn">Submit name</button>
+    </section>
+
+    <div class="overlay hidden"></div>
+
+    <section class="modal hidden" id="endGameModal">
+      <div class="header">
+        <h3>Congrats! You completed the game</h3>
+      </div>
+      <div class="bottom">
+        <p>Your name will be stored local to track your results.</p>
+        <p class="error hidden" id="error-message">
+          You need to type in a name.
+        </p>
+      </div>
+      <button class="btn btn-endGame" id="endGameModalBtn">
+        Submit your score
+      </button>
+    </section>
   </body>
 </html>

@@ -1,24 +1,21 @@
-// import Player from "./player";
+import { loadPlayerList } from "./gameSetup.js";
 
-const modal = document.querySelector(".modal");
+let modal = "";
 const overlay = document.querySelector(".overlay");
-const openModalBtn = document.querySelector(".btn-open");
 const submitBtn = document.querySelector(".btn-submit");
+const endGameBtn = document.querySelector(".btn-endGame");
 let errorMessage = document.getElementById("error-message");
 let playerName = document.getElementById("playerName");
 
 import Player from "./player.js";
 let player = new Player();
 
-export const openModal = (playerObject) => {
+export const openModal = (playerObject, src) => {
+  modal = document.getElementById(src);
   player = playerObject;
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 };
-
-// openModalBtn.addEventListener("click", function () {
-//   openModal();
-// });
 
 const closeModal = function () {
   modal.classList.add("hidden");
@@ -26,6 +23,7 @@ const closeModal = function () {
 };
 
 submitBtn.addEventListener("click", function () {
+  console.log(modal.id);
   let inputFieldName = document.getElementById("inputName");
   if (inputName.value !== "") {
     !errorMessage.classList.contains("hidden") &&
@@ -37,3 +35,17 @@ submitBtn.addEventListener("click", function () {
     errorMessage.classList.remove("hidden");
   }
 });
+
+endGameBtn.addEventListener("click", function () {
+  addToPLayerList(player);
+  loadPlayerList();
+  closeModal();
+});
+
+const addToPLayerList = (newPlayer) => {
+  let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
+
+  existingPlayerList.push(newPlayer);
+  console.log(existingPlayerList);
+  localStorage.setItem("players", JSON.stringify(existingPlayerList));
+};
