@@ -43,6 +43,7 @@ const rollAnimation = () => {
     setAlleDieFaces(dice.getValues());
     // console.log(dice.values);
   }, 100);
+
   setTimeout(function () {
     clearInterval(rollDiceInterval);
     for (let i = 0; i < 5; i++) {
@@ -76,6 +77,13 @@ const getHeldDie = () => {
     heldButtonStatus[i] = die.classList.contains("diceSelected") ? true : false;
   }
   return heldButtonStatus;
+};
+
+const removeHeldDie = () => {
+  for (let i = 0; i < 5; i++) {
+    let die = document.getElementById("die" + i);
+    die[i] = die.classList.remove("diceSelected");
+  }
 };
 
 const rollTheDice = () => {
@@ -159,6 +167,7 @@ const checkIfPointIsTaken = () => {
     updateSumAndBonus();
     resetResults();
     checkStatus();
+    removeHeldDie();
     inputWithResult = false;
   }
 };

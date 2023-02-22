@@ -409,6 +409,7 @@ td {
   height: auto;
   transition: all 0.2s ease;
   cursor: pointer;
+  margin: auto;
 }
 
 .gridParent .gridItem input:hover {
@@ -421,27 +422,40 @@ td {
 }
 
 .gridParent .gridItem .selected {
-  background-color: #ff9b5a !important;
+  background-color: var(--theme-color) !important;
+  width: 40px !important;
+  margin: auto;
   color: white;
-  border-radius: 12px;
-  box-shadow: none !important;
-  opacity: 0.9;
+  border-radius: 14px;
+  box-shadow: none;
+  border: none;
+  opacity: 0.8;
 }
 
-.gridParent .gridItem :disabled {
-  background: #d7d7d7;
-  outline: 0;
-  box-shadow: 0 0 0 0 #fff inset, var(--green-color) 0 0 0 1px;
-}
-
-.gridParent .gridItem :disabled {
-  width: 50px;
+.gridParent .gridItem input:disabled {
+  /* background: #d7d7d7; */
+  font-weight: 500;
+  outline: none;
+  box-shadow: none;
   text-align: center;
-  cursor: not-allowed;
+
+  /* box-shadow: 0 0 0 0 #fff inset, var(--green-color) 0 0 0 1px; */
+  /* width: 40px !important; */
 }
+
+.gridParent .gridItem input:disabled:hover {
+  /* border: none !important; */
+  /* background-color: #09223b; */
+  font-weight: 700;
+}
+
 .gridParent .gridItem:nth-child(13) {
   grid-column-start: 3 !important;
   justify-self: start;
+}
+
+.gridParent .gridItem:nth-child(13) input:hover {
+  cursor: not-allowed;
 }
 .gridParent .gridItem:nth-child(13)::before {
   content: "Sum:";
@@ -451,6 +465,10 @@ td {
 .gridParent .gridItem:nth-child(33) {
   grid-column-start: 4 !important;
   justify-self: end;
+}
+.gridParent .gridItem:nth-child(14) input:hover,
+.gridParent .gridItem:nth-child(33) input:hover {
+  cursor: not-allowed;
 }
 .gridParent .gridItem:nth-child(14):before {
   content: "Bonus:";
