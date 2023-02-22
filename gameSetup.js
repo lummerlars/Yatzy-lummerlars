@@ -2,8 +2,8 @@ import YatzyDice from "./YatzyDice.js";
 import Player from "./player.js";
 import { openModal } from "./modal.js";
 
-let dice = new YatzyDice();
-let player = new Player();
+let dice;
+let player;
 let newGame = true;
 
 const rollButton = document.getElementById("rollDice");
@@ -18,15 +18,25 @@ endButton.onclick = () => {
   endGame();
 };
 
-const checkNewGame = (playerObject) => {
-  // NEW DICE / NEW PLAYER
-  console.log(newGame);
-  if (newGame === true) {
-    openModal(playerObject, "chooseName");
-  }
+export const initNewGame = () => {
+  player = new Player();
+  dice = new YatzyDice();
+  openModal(player, "chooseName");
 };
 
-checkNewGame(player);
+initNewGame();
+
+export const resetGame = () => {};
+
+// const checkNewGame = (playerObject) => {
+//   // NEW DICE / NEW PLAYER
+//   console.log(newGame);
+//   if (newGame === true) {
+//     openModal(playerObject, "chooseName");
+//   }
+// };
+
+// checkNewGame(player);
 
 holdDie();
 
@@ -225,9 +235,6 @@ const endGame = () => {
   player.setScore(score.value);
   player.setResults(resultArray);
   openModal(player, "endGameModal");
-  player = new Player();
-  newGame = true;
-  checkNewGame(player);
 };
 
 export const loadPlayerList = () => {

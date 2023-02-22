@@ -109,14 +109,14 @@ h6 {
 
 @keyframes shake {
   0% {
-    transform: rotate(8deg);
+    transform: rotate(4deg);
   }
 
   50% {
-    transform: rotate(-8deg);
+    transform: rotate(-4deg);
   }
   100% {
-    transform: rotate(8deg);
+    transform: rotate(4deg);
   }
 }
 

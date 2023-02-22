@@ -1,4 +1,5 @@
 import { loadPlayerList } from "./gameSetup.js";
+import { initNewGame } from "./gameSetup.js";
 
 let modal = "";
 const overlay = document.querySelector(".overlay");
@@ -50,10 +51,13 @@ endGameBtn.addEventListener("click", function () {
 
 const startNewGame = () => {
   let rollButton = document.getElementById("startNewGame");
+  console.log(rollButton);
   rollButton.onclick = () => {
-    openModal(new Player(), "chooseName");
-    console.log(player);
+    initNewGame();
+    // openModal(new Player(), "chooseName");
+    // console.log(player);
     rollButton.id = "rollDice";
+    rollButton.textContent = "Roll";
   };
 };
 
