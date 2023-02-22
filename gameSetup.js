@@ -4,7 +4,7 @@ import { openModal } from "./modal.js";
 
 let dice = new YatzyDice();
 let player = new Player();
-let gameRound = 0;
+let newGame = true;
 
 const rollButton = document.getElementById("rollDice");
 const endButton = document.getElementById("endGame");
@@ -12,28 +12,47 @@ let throwCount = document.getElementById("rollCount");
 
 rollButton.onclick = () => {
   rollTheDice();
-  rollAnimation();
 };
 
 endButton.onclick = () => {
   endGame();
 };
 
-openModal(player, "chooseName");
+const checkNewGame = (playerObject) => {
+  // NEW DICE / NEW PLAYER
+  console.log(newGame);
+  if (newGame === true) {
+    openModal(playerObject, "chooseName");
+  }
+};
+
+checkNewGame(player);
 
 holdDie();
 
 const rollAnimation = () => {
-  // let count = 0;
-  // let rollDiceInterval = setInterval(function () {
-  //   if (count >= 2) {
-  //   }
-  //   count++;
-  //   console.log(count);
-  // }, Math.random(0, 500));
-  // setTimeout(function () {
-  //   clearInterval(runInterval);
-  // }, 2000);
+  let rollDiceInterval = setInterval(function () {
+    for (let i = 0; i < 5; i++) {
+      let die = document.getElementById("die" + i);
+      if (!die.classList.contains("diceSelected")) {
+        die.classList.add("diceShake");
+      }
+    }
+    dice.throwDice(getHeldDie());
+    setAlleDieFaces(dice.getValues());
+    console.log(dice.values);
+  }, 130);
+  setTimeout(function () {
+    clearInterval(rollDiceInterval);
+    for (let i = 0; i < 5; i++) {
+      let die = document.getElementById("die" + i);
+      if (!die.classList.contains("diceSelected")) {
+        die.classList.remove("diceShake");
+      }
+    }
+    rollButton.disabled = false;
+    checkThrowCount();
+  }, 2000);
 };
 
 // const rollAnimation = () => {
@@ -77,10 +96,12 @@ const getHeldDie = () => {
 };
 
 const rollTheDice = () => {
-  dice.throwDice(getHeldDie());
-  setAlleDieFaces(dice.getValues());
+  // dice.throwDice(getHeldDie());
+  rollButton.disabled = true;
+  rollAnimation();
+  dice.setThrowCount();
+  // setAlleDieFaces(dice.getValues());
   throwCount.textContent = dice.getThrowCount();
-  checkThrowCount();
 };
 
 const setAlleDieFaces = (dice) => {
@@ -92,9 +113,6 @@ const setAlleDieFaces = (dice) => {
 
 const checkThrowCount = () => {
   if (dice.getThrowCount() === 3) {
-    for (let i = 0; i < 5; i++) {
-      document.getElementById("die" + i).classList?.remove("diceSelected");
-    }
     showResults();
     selectResult();
     rollButton.disabled = true;
@@ -112,6 +130,7 @@ const showResults = () => {
 };
 
 const selectResult = () => {
+  let newInputFieldPressed = 0;
   document.querySelectorAll("input").forEach((inputField) => {
     let id = inputField.getAttribute("id");
     inputField.addEventListener("click", function (event) {
@@ -125,15 +144,24 @@ const selectResult = () => {
         console.log(dice.getThrowCount());
         console.log("You pressed a button with id: " + id);
         inputField.disabled = true;
+        newInputFieldPressed = inputField.value;
         updateSumAndBonus();
         dice.resetThrowCount();
         throwCount.textContent = dice.getThrowCount();
         rollButton.disabled = false;
         resetResults();
         checkStatus();
+        for (let i = 0; i < 5; i++) {
+          document.getElementById("die" + i).classList?.remove("diceSelected");
+        }
       }
     });
   });
+};
+
+const continueGame = (indputValue) => {
+  if (dice.getThrowCount() === 3) {
+  }
 };
 
 const resetResults = () => {
@@ -197,7 +225,9 @@ const endGame = () => {
   player.setScore(score.value);
   player.setResults(resultArray);
   openModal(player, "endGameModal");
-  // localStorage.clear();
+  player = new Player();
+  newGame = true;
+  checkNewGame(player);
 };
 
 export const loadPlayerList = () => {

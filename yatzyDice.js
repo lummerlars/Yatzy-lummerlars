@@ -29,6 +29,10 @@ class YatzyDice {
     return this.throwCount;
   }
 
+  setThrowCount() {
+    this.throwCount++;
+  }
+
   /**
    * Reset the throw count.
    */
@@ -42,14 +46,21 @@ class YatzyDice {
    * Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
    */
   throwDice(holdStatus) {
-    // TODO
     for (let i = 0; i < this.values.length; i++) {
       if (!holdStatus[i]) {
         this.values[i] = Math.floor(Math.random() * 6) + 1;
       }
     }
-    this.throwCount++;
   }
+
+  // throwDiceAnimation(holdStatus) {
+  //   // TODO
+  //   for (let i = 0; i < this.values.length; i++) {
+  //     if (!holdStatus[i]) {
+  //       this.values[i] = Math.floor(Math.random() * 6) + 1;
+  //     }
+  //   }
+  // }
 
   // -------------------------------------------------------------------------
 
