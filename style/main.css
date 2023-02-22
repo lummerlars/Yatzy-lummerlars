@@ -109,14 +109,14 @@ h6 {
 
 @keyframes shake {
   0% {
-    transform: rotate(4deg);
+    transform: rotate(3deg);
   }
 
   50% {
-    transform: rotate(-4deg);
+    transform: rotate(-3deg);
   }
   100% {
-    transform: rotate(4deg);
+    transform: rotate(3deg);
   }
 }
 
@@ -419,6 +419,15 @@ td {
   outline: 0;
   box-shadow: 0 0 0 0 #fff inset, var(--theme-color) 0 0 0 1px;
 }
+
+.gridParent .gridItem .selected {
+  background-color: #ff9b5a !important;
+  color: white;
+  border-radius: 12px;
+  box-shadow: none !important;
+  opacity: 0.9;
+}
+
 .gridParent .gridItem :disabled {
   background: #d7d7d7;
   outline: 0;
