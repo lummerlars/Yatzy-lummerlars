@@ -20,7 +20,7 @@ export const openModal = (playerObject, src) => {
     let displayScoreP = document.getElementById("displayScore");
     document.getElementById(
       "endGameModalHeader"
-    ).textContent = `Congrats ${playerObject.name}! You completed yatzi!`;
+    ).textContent = `Congrats ${playerObject.name}! You completed yatzy!`;
     let scoreboard = [...loadPlayerList()];
     console.log("Scoreboard: " + scoreboard.length);
     for (let i = 0; i < scoreboard.length; i++) {
