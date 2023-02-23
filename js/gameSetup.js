@@ -1,4 +1,4 @@
-import YatzyDice from "./YatzyDice.js";
+import YatzyDice from "./yatzyDice.js";
 import Player from "./player.js";
 import { openModal } from "./modal.js";
 
