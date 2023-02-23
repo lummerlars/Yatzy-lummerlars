@@ -7,24 +7,12 @@ let player;
 let inputWithResult = false;
 
 const rollButton = document.getElementById("rollDice");
-const createNewGameButton = document.getElementById("createNewGame");
-const endButton = document.getElementById("endGame");
 let throwCount = document.getElementById("rollCount");
 let totalThrowCount = document.getElementById("totalCount");
 
 rollButton.onclick = () => {
-  rollTheDice();
+  rollDiceMethod();
 };
-
-// endButton.onclick = () => {
-//   endGame();
-// };
-
-// createNewGame.onclick = () => {
-//   initNewGame();
-// };
-
-holdDie();
 
 const rollAnimation = () => {
   let rollDiceInterval = setInterval(function () {
@@ -38,17 +26,22 @@ const rollAnimation = () => {
     setAlleDieFaces(dice.getValues());
   }, Math.floor(Math.random() * (100 - 80 + 1) + 100));
 
-  setTimeout(function () {
-    clearInterval(rollDiceInterval);
-    for (let i = 0; i < 5; i++) {
-      let die = document.getElementById("die" + i);
-      if (!die.classList.contains("diceSelected")) {
-        die.classList.remove("diceShake");
+  setTimeout(
+    function () {
+      clearInterval(rollDiceInterval);
+      for (let i = 0; i < 5; i++) {
+        let die = document.getElementById("die" + i);
+        if (!die.classList.contains("diceSelected")) {
+          die.classList.remove("diceShake");
+        }
       }
-    }
-    rollButton.disabled = false;
-    checkThrowCount();
-  }, Math.floor(Math.random() * (1500 - 900 + 1) + 900));
+      rollButton.disabled = false;
+      checkThrowCount();
+    },
+    getHeldDie().every((value) => value === true)
+      ? 0
+      : Math.floor(Math.random() * (1500 - 900 + 1) + 900)
+  );
 };
 
 function holdDie() {
@@ -67,6 +60,8 @@ function holdDie() {
   });
 }
 
+holdDie();
+
 const getHeldDie = () => {
   let heldButtonStatus = new Array(5).fill(false);
   for (let i = 0; i < heldButtonStatus.length; i++) {
@@ -83,7 +78,7 @@ const removeHeldDie = () => {
   }
 };
 
-const rollTheDice = () => {
+const rollDiceMethod = () => {
   checkIfPointIsTaken();
   rollButton.disabled = true;
   rollAnimation();
@@ -130,23 +125,28 @@ const selectResult = () => {
           id !== "totalSum" &&
           dice.getThrowCount() === 3
         ) {
-          console.log(inputField);
           rollButton.disabled = false;
           event.preventDefault();
           event.stopPropagation();
           console.log(inputField.value + " with id: " + id);
-          inputField.disabled == true ? false : true;
           inputField.classList.toggle("selected");
-
           document.querySelectorAll("input").forEach((lastSelectedInput) => {
             if (lastSelectedInput.id !== id) {
               lastSelectedInput.classList.remove("selected");
             }
           });
+          checkIfButtonShouldBeDisabled();
         }
       };
     }
   });
+};
+
+const checkIfButtonShouldBeDisabled = () => {
+  let allInputFields = [...document.querySelectorAll("input")];
+  if (allInputFields.every((value) => !value.classList.contains("selected"))) {
+    rollButton.disabled = true;
+  }
 };
 
 const checkIfPointIsTaken = () => {
