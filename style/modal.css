@@ -38,6 +38,7 @@
 }
 
 .modal p {
+  text-align: center;
   font-size: 0.9rem;
   color: #777;
   margin: 0.4rem 0 0.2rem;

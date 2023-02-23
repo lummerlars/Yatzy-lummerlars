@@ -213,64 +213,41 @@ h6 {
 }
 
 .yatzyGrid .yatzyHeader .top .headerBottom .roll button {
-  align-items: center;
-  background-color: var(--theme-color);
-  border: 0;
-  border-radius: 4px;
-  box-sizing: border-box;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 20px;
-  height: 60px;
-  width: 60px;
-  min-width: 0px;
-  overflow: hidden;
-  padding: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  text-align: center;
-  touch-action: manipulation;
-  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
+  display: flex;
+  position: relative;
+  width: 65px;
+  height: 65px;
+  transform-style: preserve-3d;
+  border: 1px solid rgba(103, 103, 103, 0.5);
+  font-weight: 800;
+  border-radius: 14px;
   box-shadow: var(--default-boxShadow);
 }
 
-.yatzyGrid .yatzyHeader .top .headerBottom .roll button:hover {
-  background-color: #16437e !important;
-  color: #ffffff;
+.yatzyGrid .yatzyHeader .top .headerBottom .roll button span:hover {
+  background: linear-gradient(145deg, #d1ceca, #fff) !important;
+  border-color: #f3f1ee;
 }
-
-.yatzyGrid .yatzyHeader .top .headerBottom .roll button:focus {
-  background-color: var(--theme-color) !important;
-  color: #ffffff;
-}
-
-.yatzyGrid .yatzyHeader .top .headerBottom .roll button:focus:hover {
-  background-color: #16437e !important;
-  color: #ffffff;
-}
-
-.yatzyGrid .yatzyHeader .top .headerBottom .roll button:hover:after {
-  opacity: 0.5;
-}
-
-.yatzyGrid .yatzyHeader .top .headerBottom .roll button:active {
-  background: #09223b !important;
-  color: rgb(255, 255, 255, 0.7);
-}
-
 .yatzyGrid .yatzyHeader .top .headerBottom .roll button:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
-  background: #09223b !important;
-  color: rgb(255, 255, 255, 0.7);
+}
+
+.yatzyGrid .yatzyHeader .top .headerBottom .roll button span {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 5px solid #f6f3f0;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #dddbd8, #fff);
+  transform-style: preserve-3d;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgb(0, 0, 0);
 }
 
 .yatzyGrid .yatzyHeader .top .turnInfo {
@@ -284,20 +261,23 @@ h6 {
 .yatzyGrid .yatzyHeader .top .turnInfo .totalTurn {
   display: inline-block;
   margin: auto;
-  background-color: var(--theme-color);
+  border: 5px solid #f6f3f0;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #dddbd8, #fff);
+  transform-style: preserve-3d;
   padding: 5px;
   width: 100px;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   font-size: 14px;
   box-shadow: var(--default-boxShadow);
   font-weight: 200;
-  color: white;
+  color: black;
 }
 
 .yatzyGrid .yatzyHeader .top .turnInfo .currentTurn .count,
 .yatzyGrid .yatzyHeader .top .turnInfo .totalTurn .count {
   display: table;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 auto;
 }
 
@@ -385,6 +365,7 @@ td {
 }
 .gridParent .gridItem {
   grid-column-start: span 6;
+  font-size: 14px;
 }
 .gridParent .gridItem:nth-child(1n) {
   grid-column-start: 1 !important;
@@ -413,7 +394,7 @@ td {
 }
 
 .gridParent .gridItem input:hover {
-  box-shadow: 0 0 0 0 #fff inset, var(--theme-color) 0 0 0 2px;
+  box-shadow: 0 0 0 0 #fff inset, var(--theme-color) 0 0 0 1.5px;
 }
 .gridParent .gridItem input:focus {
   background: #fff;
@@ -433,19 +414,13 @@ td {
 }
 
 .gridParent .gridItem input:disabled {
-  /* background: #d7d7d7; */
   font-weight: 500;
   outline: none;
   box-shadow: none;
   text-align: center;
-
-  /* box-shadow: 0 0 0 0 #fff inset, var(--green-color) 0 0 0 1px; */
-  /* width: 40px !important; */
 }
 
 .gridParent .gridItem input:disabled:hover {
-  /* border: none !important; */
-  /* background-color: #09223b; */
   font-weight: 700;
 }
 
@@ -458,6 +433,7 @@ td {
   cursor: not-allowed;
 }
 .gridParent .gridItem:nth-child(13)::before {
+  padding-top: 5px;
   content: "Sum:";
   margin-right: 8px;
 }
@@ -471,10 +447,22 @@ td {
   cursor: not-allowed;
 }
 .gridParent .gridItem:nth-child(14):before {
+  padding-top: 5px;
   content: "Bonus:";
   margin-right: 8px;
 }
 .gridParent .gridItem:nth-child(33):before {
+  padding-top: 5px;
   content: "Total:";
   margin-right: 8px;
+}
+.gridParent .gridItem:nth-child(13) input,
+.gridParent .gridItem:nth-child(14) input,
+.gridParent .gridItem:nth-child(33) input {
+  transition: 0.2 ease-in;
+  -webkit-box-shadow: 0 3px 2px -2px var(--theme-color);
+  -moz-box-shadow: 0 3px 2px -2px var(--theme-color);
+  box-shadow: 0 3px 2px -2px var(--theme-color);
+  border-radius: 0;
+  font-weight: 700;
 }

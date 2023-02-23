@@ -4,6 +4,7 @@ class YatzyDice {
   constructor() {
     this.values = new Array(5).fill(0);
     this.throwCount = 0;
+    this.totalThrowCount = 0;
   }
 
   /**
@@ -29,8 +30,13 @@ class YatzyDice {
     return this.throwCount;
   }
 
+  getTotalThrowCount() {
+    return this.totalThrowCount;
+  }
+
   setThrowCount() {
     this.throwCount++;
+    this.totalThrowCount++;
   }
 
   /**
@@ -52,15 +58,6 @@ class YatzyDice {
       }
     }
   }
-
-  // throwDiceAnimation(holdStatus) {
-  //   // TODO
-  //   for (let i = 0; i < this.values.length; i++) {
-  //     if (!holdStatus[i]) {
-  //       this.values[i] = Math.floor(Math.random() * 6) + 1;
-  //     }
-  //   }
-  // }
 
   // -------------------------------------------------------------------------
 

@@ -4,30 +4,25 @@ import { openModal } from "./modal.js";
 
 let dice;
 let player;
-let newGame = true;
 let inputWithResult = false;
 
 const rollButton = document.getElementById("rollDice");
+const createNewGameButton = document.getElementById("createNewGame");
 const endButton = document.getElementById("endGame");
 let throwCount = document.getElementById("rollCount");
+let totalThrowCount = document.getElementById("totalCount");
 
 rollButton.onclick = () => {
   rollTheDice();
 };
 
-endButton.onclick = () => {
-  endGame();
-};
+// endButton.onclick = () => {
+//   endGame();
+// };
 
-export const initNewGame = () => {
-  player = new Player();
-  dice = new YatzyDice();
-  openModal(player, "chooseName");
-};
-
-initNewGame();
-
-export const resetGame = () => {};
+// createNewGame.onclick = () => {
+//   initNewGame();
+// };
 
 holdDie();
 
@@ -41,8 +36,7 @@ const rollAnimation = () => {
     }
     dice.throwDice(getHeldDie());
     setAlleDieFaces(dice.getValues());
-    // console.log(dice.values);
-  }, 100);
+  }, Math.floor(Math.random() * (100 - 80 + 1) + 100));
 
   setTimeout(function () {
     clearInterval(rollDiceInterval);
@@ -59,9 +53,12 @@ const rollAnimation = () => {
 
 function holdDie() {
   document.querySelectorAll("img").forEach((element) => {
-    let id = element.getAttribute("id");
     element.addEventListener("click", function (event) {
-      if (!rollButton.disabled && dice.getThrowCount() !== 0) {
+      if (
+        !rollButton.disabled &&
+        dice.getThrowCount() !== 0 &&
+        dice.getThrowCount() !== 3
+      ) {
         event.preventDefault();
         this.disabled == true ? false : true;
         this.classList.toggle("diceSelected");
@@ -92,6 +89,7 @@ const rollTheDice = () => {
   rollAnimation();
   dice.setThrowCount();
   throwCount.textContent = dice.getThrowCount();
+  totalThrowCount.textContent = dice.getTotalThrowCount();
 };
 
 const setAlleDieFaces = (dice) => {
@@ -253,6 +251,32 @@ export const loadPlayerList = () => {
       let dateCell = row.insertCell(-1);
       dateCell.innerHTML = dateFormat.toLocaleDateString();
     });
+  return existingPlayerList;
 };
 
 loadPlayerList();
+
+export const resetGame = () => {
+  for (let i = 0; i < 15; i++) {
+    let inputField = document.getElementById("result-" + i);
+    inputField.value = "";
+    inputField.disabled = false;
+    rollButton.disabled = false;
+    document.getElementById("sum").value = "";
+    document.getElementById("bonus").value = "";
+    document.getElementById("totalSum").value = "";
+  }
+  throwCount.textContent = dice.getThrowCount();
+  totalThrowCount.textContent = dice.getTotalThrowCount();
+  removeHeldDie();
+};
+
+export const initNewGame = () => {
+  player = new Player();
+  dice = new YatzyDice();
+  openModal(player, "chooseName");
+  console.log("initNewGame: " + player.score);
+  resetGame();
+};
+
+initNewGame();

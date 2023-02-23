@@ -13,9 +13,57 @@ let player = new Player();
 
 export const openModal = (playerObject, src) => {
   modal = document.getElementById(src);
+  document.getElementById("inputName").value = "";
   player = playerObject;
+  console.log("openModal.score: " + playerObject.score);
+  if (src === "endGameModal") {
+    let displayScoreP = document.getElementById("displayScore");
+    document.getElementById(
+      "endGameModalHeader"
+    ).textContent = `Congrats ${playerObject.name}! You completed yatzi!`;
+    let scoreboard = [...loadPlayerList()];
+    console.log("Scoreboard: " + scoreboard.length);
+    for (let i = 0; i < scoreboard.length; i++) {
+      if (parseInt(player.score) > parseInt(scoreboard[i].score)) {
+        console.log("Player.score: " + player.score);
+        console.log("scoreboard.i.score: " + scoreboard[i].score);
+        console.log("scoreboard.i.name: " + scoreboard[i].name);
+        displayScoreP.innerHTML = `${
+          i === 0
+            ? "You're the best and have beaten "
+            : "You completed the game and have beaten "
+        } <strong> 
+          ${scoreboard[i].name}'s</strong> score on <i>
+          ${scoreboard[i].score}
+          points</i> with your score on <i>
+          ${player.score}
+          points</i> and have now made your way to <strong>${++i}${nth(
+          i
+        )}</strong> place on the scoreboard`;
+        break;
+      } else {
+        displayScoreP.innerHTML = `Unfortunately you didn't beat anyone. You were ${
+          scoreboard[i].score - player.score
+        } points away from ${scoreboard[i].name} `;
+      }
+    }
+  }
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
+};
+
+const nth = (index) => {
+  if (index > 3 && index < 21) return "th";
+  switch (index % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
+  }
 };
 
 const closeModal = function () {
@@ -38,32 +86,15 @@ submitBtn.addEventListener("click", function () {
 });
 
 endGameBtn.addEventListener("click", function () {
-  let rollButton = document.getElementById("rollDice");
+  console.log("endGameBtn: " + player);
   addToPLayerList(player);
   loadPlayerList();
   closeModal();
-  rollButton.textContent = "New Game";
-  rollButton.id = "startNewGame";
-  if (rollButton.id === "startNewGame") {
-    startNewGame();
-  }
+  initNewGame();
 });
-
-const startNewGame = () => {
-  let rollButton = document.getElementById("startNewGame");
-  console.log(rollButton);
-  rollButton.onclick = () => {
-    initNewGame();
-    // openModal(new Player(), "chooseName");
-    // console.log(player);
-    rollButton.id = "rollDice";
-    rollButton.textContent = "Roll";
-  };
-};
 
 const addToPLayerList = (newPlayer) => {
   let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
   existingPlayerList.push(newPlayer);
-  console.log(existingPlayerList);
   localStorage.setItem("players", JSON.stringify(existingPlayerList));
 };
