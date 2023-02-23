@@ -164,7 +164,7 @@ const checkIfPointIsTaken = () => {
     rollButton.disabled = false;
     updateSumAndBonus();
     resetResults();
-    checkStatus();
+    checkGameStatus();
     removeHeldDie();
     inputWithResult = false;
   }
@@ -179,7 +179,7 @@ const resetResults = () => {
   }
 };
 
-const checkStatus = () => {
+const checkGameStatus = () => {
   let countDisabledInputField = 0;
   for (let i = 0; i < 15; i++) {
     let inputField = document.getElementById("result-" + i);
@@ -217,6 +217,8 @@ const updateSumAndBonus = () => {
   document.getElementById("totalSum").value = parseInt(totalSum);
 };
 
+// GAME SETUP - INIT / END GAME ec.
+
 const endGame = () => {
   let resultArray = [];
   for (let i = 0; i < 15; i++) {
@@ -232,29 +234,6 @@ const endGame = () => {
   player.setResults(resultArray);
   openModal(player, "endGameModal");
 };
-
-export const loadPlayerList = () => {
-  const table = document.getElementById("highscoreTable");
-  table.innerHTML = "";
-  let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
-
-  existingPlayerList
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 5)
-    .map((item) => {
-      let row = table.insertRow();
-      let nameCell = row.insertCell(-1);
-      nameCell.innerHTML = item.name;
-      let scoreCell = row.insertCell(-1);
-      scoreCell.innerHTML = item.score;
-      let dateFormat = new Date(item.id);
-      let dateCell = row.insertCell(-1);
-      dateCell.innerHTML = dateFormat.toLocaleDateString();
-    });
-  return existingPlayerList;
-};
-
-loadPlayerList();
 
 export const resetGame = () => {
   for (let i = 0; i < 15; i++) {
@@ -280,3 +259,26 @@ export const initNewGame = () => {
 };
 
 initNewGame();
+
+export const loadPlayerList = () => {
+  const table = document.getElementById("highscoreTable");
+  table.innerHTML = "";
+  let existingPlayerList = JSON.parse(localStorage.getItem("players")) || [];
+
+  existingPlayerList
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5)
+    .map((item) => {
+      let row = table.insertRow();
+      let nameCell = row.insertCell(-1);
+      nameCell.innerHTML = item.name;
+      let scoreCell = row.insertCell(-1);
+      scoreCell.innerHTML = item.score;
+      let dateFormat = new Date(item.id);
+      let dateCell = row.insertCell(-1);
+      dateCell.innerHTML = dateFormat.toLocaleDateString();
+    });
+  return existingPlayerList;
+};
+
+loadPlayerList();

@@ -1,6 +1,4 @@
 class YatzyDice {
-  // Face values of the 5 dice.
-  // 1 <= values[i] <= 6 for i in [0..4]
   constructor() {
     this.values = new Array(5).fill(0);
     this.throwCount = 0;
@@ -15,9 +13,8 @@ class YatzyDice {
   };
 
   /**
-   * Set the 5 face values of the dice.<br/>
-   * Pre: 1 <= values[i] <= 6 for i in [0..4].<br/>
-   * Note: This method is only to be used in tests.
+   * Set the 5 face values of the dice.
+   * Pre: 1 <= values[i] <= 6 for i in [0..4]
    */
   setValues(values) {
     this.values = values;
@@ -43,12 +40,11 @@ class YatzyDice {
    * Reset the throw count.
    */
   resetThrowCount() {
-    // TODO
     this.throwCount = 0;
   }
 
   /**
-   * Roll the 5 dice. Only roll dice that are not hold.<br/>
+   * Roll the 5 dice. Only roll dice that are not hold.
    * Note: holdStatus[i] is true, if die no. i is hold (for i in [0..4]).
    */
   throwDice(holdStatus) {
@@ -62,10 +58,8 @@ class YatzyDice {
   // -------------------------------------------------------------------------
 
   /**
-   * Return all results possible with the current face values.<br/>
-   * The order of the results is the same as on the score board.<br/>
-   * Note: This is an optional method. Comment this method out,<br/>
-   * if you don't want use it.
+   * Return all results possible with the current face values.
+   * The order of the results is the same as on the score board.
    */
   getResults() {
     let results = Array(15);
@@ -90,9 +84,7 @@ class YatzyDice {
   // Return an int[7] containing the frequency of face values.
   // Frequency at index v is the number of dice with the face value v, 1 <= v <= 6.
   // Index 0 is not used.
-  // Note: This method can be used in several of the following methods.
   frequency() {
-    //TODO
     let freq = new Array(7).fill(0);
     for (let value of this.values) {
       freq[value]++;
@@ -101,22 +93,20 @@ class YatzyDice {
   }
 
   /**
-   * Return same-value points for the given face value.<br/>
-   * Returns 0, if no dice has the given face value.<br/>
+   * Return same-value points for the given face value.
+   * Returns 0, if no dice has the given face value.
    * Pre: 1 <= value <= 6;
    */
   sameValuePoints(value) {
-    // TODO
     let freq = this.frequency();
     return freq[value] * value;
   }
 
   /**
-   * Return points for one pair (for the face value giving the highest points).<br/>
+   * Return points for one pair (for the face value giving the highest points).
    * Return 0, if there aren't 2 dice with the same face value.
    */
   onePairPoints() {
-    // TODO
     let freq = this.frequency();
     for (let i = freq.length - 1; i > 0; i--) {
       if (freq[i] > 1) {
@@ -127,13 +117,12 @@ class YatzyDice {
   }
 
   /**
-   * Return points for two pairs<br/>
-   * (for the 2 face values giving the highest points).<br/>
-   * Return 0, if there aren't 2 dice with the same face value<br/>
+   * Return points for two pairs
+   * (for the 2 face values giving the highest points).
+   * Return 0, if there aren't 2 dice with the same face value
    * and 2 other dice with the same but different face value.
    */
   twoPairPoints() {
-    // TODO
     let freq = this.frequency();
     let firstPair = 0;
     let secondPair = 0;
@@ -154,11 +143,10 @@ class YatzyDice {
   }
 
   /**
-   * Return points for 3 of a kind.<br/>
+   * Return points for 3 of a kind.
    * Return 0, if there aren't 3 dice with the same face value.
    */
   threeSamePoints() {
-    // TODO
     let freq = this.frequency();
     let threeKind = 0;
     for (let i = 1; i < freq.length; i++) {
@@ -170,11 +158,10 @@ class YatzyDice {
   }
 
   /**
-   * Return points for 4 of a kind.<br/>
+   * Return points for 4 of a kind.
    * Return 0, if there aren't 4 dice with the same face value.
    */
   fourSamePoints() {
-    // TODO
     let freq = this.frequency();
     let fourKind = 0;
     for (let i = 1; i < freq.length; i++) {
@@ -186,12 +173,11 @@ class YatzyDice {
   }
 
   /**
-   * Return points for full house.<br/>
-   * Return 0, if there aren't 3 dice with the same face value<br/>
+   * Return points for full house.
+   * Return 0, if there aren't 3 dice with the same face value
    * and 2 other dice with the same but different face value.
    */
   fullHousePoints() {
-    // TODO
     let freq = this.frequency();
     let pair = 0;
     let threeKind = 0;
@@ -209,11 +195,10 @@ class YatzyDice {
   }
 
   /**
-   * Return points for small straight.<br/>
+   * Return points for small straight.
    * Return 0, if the dice aren't showing 1,2,3,4,5.
    */
   smallStraightPoints() {
-    // TODO
     let freq = this.frequency();
     for (let i = 1; i < freq.length - 1; i++) {
       if (freq[i] != 1) {
@@ -224,11 +209,10 @@ class YatzyDice {
   }
 
   /**
-   * Return points for large straight.<br/>
+   * Return points for large straight.
    * Return 0, if the dice aren't showing 2,3,4,5,6.
    */
   largeStraightPoints() {
-    // TODO
     let freq = this.frequency();
     for (let i = 2; i < freq.length; i++) {
       if (freq[i] != 1) {
@@ -250,11 +234,10 @@ class YatzyDice {
   }
 
   /**
-   * Return points for yatzy (50 points).<br/>
+   * Return points for yatzy (50 points).
    * Return 0, if there aren't 5 dice with the same face value.
    */
   yatzyPoints() {
-    // TODO
     let freq = this.frequency();
     for (let i = 1; i < freq.length; i++) {
       if (freq[i] == 5) {
