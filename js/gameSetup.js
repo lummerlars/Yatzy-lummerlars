@@ -36,6 +36,8 @@ const rollAnimation = () => {
         }
       }
       rollButton.disabled = false;
+      showResults();
+      selectResult();
       checkThrowCount();
     },
     getHeldDie().every((value) => value === true)
@@ -97,8 +99,6 @@ const setAlleDieFaces = (dice) => {
 const checkThrowCount = () => {
   if (dice.getThrowCount() === 3) {
     rollButton.disabled = true;
-    showResults();
-    selectResult();
   } else {
     return;
   }
@@ -119,12 +119,7 @@ const selectResult = () => {
     let id = inputField.getAttribute("id");
     if (!inputField.disabled) {
       inputField.onclick = (event) => {
-        if (
-          id !== "sum" &&
-          id !== "bonus" &&
-          id !== "totalSum" &&
-          dice.getThrowCount() === 3
-        ) {
+        if (id !== "sum" && id !== "bonus" && id !== "totalSum") {
           rollButton.disabled = false;
           event.preventDefault();
           event.stopPropagation();
@@ -144,8 +139,12 @@ const selectResult = () => {
 
 const checkIfButtonShouldBeDisabled = () => {
   let allInputFields = [...document.querySelectorAll("input")];
-  if (allInputFields.every((value) => !value.classList.contains("selected"))) {
-    rollButton.disabled = true;
+  if (dice.getThrowCount() === 3) {
+    if (
+      allInputFields.every((value) => !value.classList.contains("selected"))
+    ) {
+      rollButton.disabled = true;
+    }
   }
 };
 
